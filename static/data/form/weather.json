@@ -1,0 +1,8 @@
+[
+  { "id": "all", "text": "所有的氣候", "icon": null, "color": null },
+  { "id": "sun", "text": "太陽", "icon": "fas fa-sun", "color": "red" },
+  { "id": "cloud", "text": "雲", "icon": "fas fa-cloud", "color": "grey" },
+  { "id": "snow", "text": "雪", "icon": "fas fa-snowflake", "color": "#66B3FF" },
+  { "id": "rain", "text": "雨", "icon": "fas fa-umbrella", "color": "blue" },
+  { "id": "none", "text": "無屬性", "icon": "fas fa-circle", "color": "green" }
+]
