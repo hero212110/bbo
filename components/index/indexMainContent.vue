@@ -13,11 +13,11 @@
             >
               <div class="player-block">
                 <div class="header">
-                  <span>{{ item.text }}</span>
+                  <span>{{ item.year }}{{ item.text }}</span>
                   <span>{{ $getIdText(item.field) }} {{ item.ovr }}</span>
                 </div>
                 <div class="left">
-                  <img src="/images/common/star.png" alt="" />
+                  <img src="/images/common/b1.png" alt="" />
                   <span>{{ $getIdText(item.type) }}</span>
                 </div>
                 <div class="right">
@@ -230,6 +230,7 @@ export default {
       display: flex;
       flex-wrap: wrap;
       width: 60%;
+      font-size: 0.5em;
       > ul {
         list-style: none;
         width: 100%;

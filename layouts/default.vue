@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire">
+  <v-app>
     <layout-header></layout-header>
     <v-main class="grey lighten-3">
       <nuxt />

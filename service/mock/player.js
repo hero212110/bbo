@@ -18,7 +18,7 @@ class PlayerService {
       for (let i = minYeaR; i <= maxYeaR; i++) {
         console.log(i)
         if (fullPlayer[`player${i}`]) {
-          arr = arr.concat(fullPlayer[`player${i}`].brothers)
+          arr = arr.concat(fullPlayer[`player${i}`])
         }
       }
 
