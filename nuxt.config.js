@@ -11,7 +11,7 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
   css: ['@fortawesome/fontawesome-free/css/all.css'],
-  plugins: [],
+  plugins: [{ src: '~/plugins/common.js' }],
   components: true,
   buildModules: ['@nuxtjs/vuetify', '@nuxtjs/style-resources'],
   styleResources: {

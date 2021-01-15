@@ -7,7 +7,10 @@
     <v-card class="wrapper">
       <v-app-bar flat color="rgba(0, 0, 0, 0)">
         <v-toolbar-title class="title black--text pl-0">
-          詳細搜尋
+          <div class="form-title">
+            <v-icon>fab fa-searchengin</v-icon>
+            <span>詳細搜尋</span>
+          </div>
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn color="black" icon @click="setSearchModal">
@@ -33,9 +36,9 @@
             cols="12"
             sm="8"
             class="main"
-            :class="{ filtered: !showTitle }"
+            :class="{ filtered: !isNotSelection }"
           >
-            <p v-if="showTitle" class="title">
+            <p v-if="isNotSelection" class="content-title">
               {{ currTab.text }}
             </p>
 
@@ -79,20 +82,32 @@
               </v-range-slider>
             </div>
 
-            <div v-if="currTab.id == 'weather'">
+            <div v-if="!isNotSelection">
               <ul class="filter-list">
                 <li
-                  v-for="item in database.weather"
+                  v-for="item in database[currTab.id]"
                   :key="item.id"
-                  :class="{ active: form.weather.includes(item.id) }"
+                  :class="{ active: form[currTab.id].includes(item.id) }"
                   @click="changeList(item)"
                 >
                   <div>
+                    <v-icon class="check-circle">fas fa-circle</v-icon>
                     <span> {{ item.text }}</span>
                   </div>
-                  <v-icon v-if="item.icon" :style="{ color: item.color }">{{
-                    item.icon
-                  }}</v-icon>
+
+                  <template v-if="item.icon">
+                    <v-icon :style="{ color: item.color }">
+                      {{ item.icon }}
+                    </v-icon>
+                  </template>
+
+                  <template v-if="item.img">
+                    <span> {{ item.img }}</span>
+                  </template>
+
+                  <template v-if="item.hint">
+                    <span> {{ item.hint }}</span>
+                  </template>
                 </li>
               </ul>
             </div>
@@ -102,12 +117,21 @@
 
       <v-card-actions style="margin-top: 50px">
         <v-spacer></v-spacer>
-        <v-btn color="primary darken-1" text @click="doSearch"> 搜尋 </v-btn>
+        <v-btn color="warning" class="ma-2 white--text" @click="resetField">
+          <v-icon left>fas fa-sync-alt</v-icon>
+          <span>重置</span>
+        </v-btn>
+        <v-btn color="blue" class="ma-2 white--text" @click="doSearch">
+          <v-icon left>fas fa-search</v-icon>
+          <span>搜尋</span>
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
 <script>
+import teamJSON from '@/static/data/form/team'
+import fieldJSON from '@/static/data/form/field'
 import weatherJSON from '@/static/data/form/weather'
 export default {
   props: {
@@ -134,8 +158,8 @@ export default {
       },
       database: {
         name: '',
-        team: [],
-        field: [],
+        team: teamJSON,
+        field: fieldJSON,
         ovr: [56, 92],
         year: [2007, 2020],
         weather: weatherJSON,
@@ -151,7 +175,7 @@ export default {
         return false
       },
     },
-    showTitle() {
+    isNotSelection() {
       let arr = ['name', 'ovr', 'year']
       return arr.includes(this.currTab.id)
     },
@@ -162,22 +186,50 @@ export default {
       this.resetField()
     },
     doSearch() {
-      console.log(this.form)
+      // console.log(this.form)
+      this.$store.commit('player/SET_LOADING', true)
+      this.$store.commit('player/CLEAR_PLAYER_LIST')
+      this.$store.dispatch('player/fetchPlayerList', this.form)
+      this.$emit('setSearchModal', false)
     },
     resetField() {
+      this.form.name = ''
+      this.form.team = ['all']
+      this.form.field = ['all']
       this.form.ovr = []
       this.form.ovr.push(this.database.ovr[0])
       this.form.ovr.push(this.database.ovr[1])
       this.form.year = []
       this.form.year.push(this.database.year[0])
       this.form.year.push(this.database.year[1])
-      this.form.weather = []
+      this.form.weather = ['all']
     },
     changeList(item) {
-      console.log(item)
-      if (this.form.weather.includes(item.id)) {
-      } else {
-        this.form.weather.push(item.id)
+      let currId = this.currTab.id
+      //移除選擇項
+      if (this.form[currId].includes(item.id)) {
+        let index = this.form[currId].indexOf(item.id)
+        this.form[currId].splice(index, 1)
+        //選擇項皆未選取時 => 設置為all
+        if (this.form[currId].length == 0) {
+          this.form[currId].push('all')
+        }
+      }
+      //新增選擇項
+      else {
+        //新增項為all時 => 移除其他項
+        if (item.id == 'all') {
+          this.form[currId] = ['all']
+        } else {
+          //只有all被選取時 => 移除all 再新增其他項
+          if (
+            this.form[currId].length == 1 &&
+            this.form[currId].includes('all')
+          ) {
+            this.form[currId] = []
+          }
+          this.form[currId].push(item.id)
+        }
       }
     },
   },
@@ -189,6 +241,9 @@ export default {
 <style lang="scss" scoped>
 .wrapper {
   background: linear-gradient(45deg, #cbd0d4, #919aa9);
+  .form-title {
+    padding-left: 8px;
+  }
   .side {
     .tab-list {
       padding-left: 0;
@@ -212,16 +267,16 @@ export default {
     &.filtered {
       padding: 0;
     }
-    .title {
+    .content-title {
       color: black;
-      font-size: 16px;
+      font-size: 20px;
       font-weight: bold;
-      padding-left: 3px;
+      padding-left: 10px;
       position: relative;
       &::before {
         content: '|';
         position: absolute;
-        left: -6px;
+        left: 0px;
         top: -2px;
       }
     }
@@ -238,9 +293,11 @@ export default {
         display: flex;
         justify-content: space-between;
         cursor: pointer;
-        &:hover,
         &.active {
           background: white;
+          > div .check-circle {
+            color: #dfb63a;
+          }
         }
       }
     }

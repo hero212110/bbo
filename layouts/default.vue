@@ -13,7 +13,7 @@ export default {
   data: () => ({}),
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 @import url('https://fonts.googleapis.com/css?family=Catamaran:300,400,500,600,700,800,900');
 @import url('https://fonts.googleapis.com/css?family=Heebo:300,400,500,600,700,800,900');
 @import url('https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700,800,900');
