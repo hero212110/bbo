@@ -190,6 +190,7 @@ export default {
       this.$store.commit('player/SET_LOADING', true)
       this.$store.commit('player/CLEAR_PLAYER_LIST')
       this.$store.dispatch('player/fetchPlayerList', this.form)
+      this.resetField()
       this.$emit('setSearchModal', false)
     },
     resetField() {
