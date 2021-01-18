@@ -13,12 +13,38 @@
             >
               <div class="player-block">
                 <div class="header">
-                  <span>{{ item.year }}{{ item.text }}</span>
+                  <span>{{ item.year }} {{ item.name }}</span>
                   <span>{{ $getIdText(item.field) }} {{ item.ovr }}</span>
                 </div>
                 <div class="left">
-                  <img src="/images/common/b1.png" alt="" />
-                  <span>{{ $getIdText(item.type) }}</span>
+                  <div class="avatar-container">
+                    <img
+                      :src="
+                        require(`../../static/images/player/${item.team}.png`)
+                      "
+                      alt=""
+                    />
+                    <span class="avatar-ovr">{{ item.ovr }}</span>
+                    <v-icon class="avatar-weather" :class="item.weather">
+                      fas fa-{{ $getWeatherIcon(item.weather) }}
+                    </v-icon>
+                    <span class="avatar-field">{{
+                      item.field.toUpperCase()
+                    }}</span>
+                    <span class="avatar-name">
+                      {{ item.year.substr(2, 2) }} {{ item.name }}
+                    </span>
+
+                    <span :class="$getLevelColor(player.level)">
+                      +{{ player.level }}
+                    </span>
+                  </div>
+
+                  <div class="avatar-info">
+                    <span>{{ $getIdText(item.team) }}</span>
+                    <span>{{ $getIdText(item.side) }}</span>
+                    <span>{{ $getIdText(item.type) }}</span>
+                  </div>
                 </div>
                 <div class="right">
                   <ul>
@@ -132,14 +158,18 @@ export default {
   }),
   computed: {
     ...mapState(['player']),
+    ...mapGetters('player', {
+      upgradedPlayerList: 'GetUpgradedPlayerList',
+    }),
     shownPlayerList() {
-      let tmp = this.player.playerList.length > 0 ? this.player.playerList : []
+      let tmp =
+        this.upgradedPlayerList.length > 0 ? this.upgradedPlayerList : []
       let c = this.currPagination
       let result = []
       if (c == 1) {
         result = tmp.slice(0, 12)
       } else {
-        if (c != this.player.playerList.length) {
+        if (c != this.upgradedPlayerList.length) {
           result = tmp.slice(12 * (c - 1), 12 * c)
         }
         //last page
@@ -150,7 +180,8 @@ export default {
       return result
     },
     pagnitionList() {
-      let tmp = this.player.playerList.length > 0 ? this.player.playerList : []
+      let tmp =
+        this.upgradedPlayerList.length > 0 ? this.upgradedPlayerList : []
       let len = Math.ceil(tmp.length / 12)
       let arr = []
       for (let i = 0; i < len; i++) {
@@ -199,18 +230,21 @@ export default {
 <style lang="scss" scoped>
 .wrapper {
   background: #e0e0e0;
-  font-family: Arial, Helvetica, sans-serif;
+  // font-family: Arial, Helvetica, sans-serif;
+  font-family: Microsoft JhengHei;
   min-height: 90vh;
   position: relative;
   .player-block {
     display: flex;
     flex-wrap: wrap;
-    border: 1px solid orange;
+    border: 1.5px solid orange;
+    border-radius: 4px;
+    font-weight: 600;
     .header {
       display: flex;
       justify-content: space-between;
       width: 100%;
-      padding: 10px 10% 10px 10px;
+      padding: 10px 7% 10px 10px;
       border-bottom: 1.5px solid #bebebe;
       margin-bottom: 10px;
     }
@@ -219,11 +253,83 @@ export default {
       flex-wrap: wrap;
       width: 40%;
       padding: 0 10px 10px 10px;
-      > img {
+      .avatar-container {
         width: 100%;
+        position: relative;
+        color: white;
+        > img {
+          width: 100%;
+        }
+        .avatar-ovr {
+          position: absolute;
+          top: 0em;
+          right: 0.1em;
+          -webkit-text-stroke: 0.5px black;
+        }
+        .avatar-weather {
+          position: absolute;
+          top: 15%;
+          right: 0.1em;
+          &.sun {
+            color: red;
+          }
+          &.cloud {
+            color: #f0f0f0;
+          }
+          &.snow {
+            color: #66b3ff;
+          }
+          &.rain {
+            color: blue;
+          }
+          &.none {
+            color: green;
+          }
+        }
+        .avatar-field {
+          position: absolute;
+          bottom: 20%;
+          right: 0.5em;
+          -webkit-text-stroke: 0.8px black;
+        }
+        .avatar-name {
+          position: absolute;
+          left: 15%;
+          bottom: 0.4em;
+          width: 100%;
+        }
+        > span:last-child {
+          position: absolute;
+          left: 0.3em;
+          bottom: 2.5em;
+          font-weight: 700;
+          font-size: 0.8em;
+          padding: 2px 6px;
+          border: 0.5px solid #3c3c3c;
+          border-radius: 4px;
+          &.none {
+            display: none;
+          }
+          &.copper {
+            @include copper;
+          }
+          &.silver {
+            @include silver;
+          }
+          &.gold {
+            @include gold;
+          }
+          &.rainbow {
+            @include rainbow;
+          }
+        }
       }
-      > span {
-        padding-top: 10px;
+      .avatar-info {
+        > span {
+          font-size: 0.5em;
+          display: block;
+          width: 100%;
+        }
       }
     }
     .right {
@@ -243,7 +349,7 @@ export default {
           > span {
             text-align: center;
             &:first-child {
-              font-weight: 600;
+              text-overflow: ellipsis;
             }
             &:last-child {
               background: black;

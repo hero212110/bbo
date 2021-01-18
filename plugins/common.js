@@ -18,27 +18,48 @@ export default ({ app, store }, inject) => {
   inject('getStatusColor', (params) => {
     let color = ''
     color =
-      params > 111
+      params > 110
         ? 'yellow'
-        : params > 101
-        ? 'purple'
-        : params > 91
+        : params > 100
+        ? '#8600FF'
+        : params > 90
         ? 'red'
-        : params > 81
+        : params > 80
         ? 'orange'
-        : params > 71
+        : params > 70
         ? '#0072E3'
         : 'gray'
     return color
   })
 
-  //   inject('getProductText', (params) => {
-  //     let textList = []
-  //     let productCodeList = []
-  //     productCodeConversionTable.forEach((item) => {
-  //       textList.push(item.text)
-  //       productCodeList.push(item.productCode)
-  //     })
-  //     return textList[productCodeList.indexOf(params)] || ''
-  //   })
+  inject('getLevelColor', (params) => {
+    let color = 'none'
+    color =
+      params >= 10
+        ? 'rainbow'
+        : params >= 8
+        ? 'gold'
+        : params >= 5
+        ? 'silver'
+        : params >= 1
+        ? 'copper'
+        : 'none'
+    return color
+  })
+
+  inject('getWeatherIcon', (params) => {
+    let icon = 'cloud'
+    icon =
+      params == 'sun'
+        ? 'sun'
+        : params == 'cloud'
+        ? 'cloud'
+        : params == 'snow'
+        ? 'snowflake'
+        : params == 'rain'
+        ? 'umbrella'
+        : 'circle'
+
+    return icon
+  })
 }

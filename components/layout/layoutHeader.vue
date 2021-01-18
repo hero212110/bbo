@@ -21,7 +21,7 @@
 <script>
 export default {
   data: () => ({
-    links: ['Dashboard', 'Messages', 'Profile', 'Updates'],
+    links: ['全民打棒球PRO 打者能力值查詢'],
   }),
 }
 </script>

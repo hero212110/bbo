@@ -1,20 +1,40 @@
 @mixin center() {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate3d(-50%, -50%, 0);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+}
+@mixin keyframes($animationName) {
+  @-webkit-keyframes #{$animationName} {
+    @content;
   }
-  @mixin keyframes($animationName) {
-    @-webkit-keyframes #{$animationName} {
-      @content;
-    }
-    @-moz-keyframes #{$animationName} {
-      @content;
-    }
-    @-o-keyframes #{$animationName} {
-      @content;
-    }
-    @keyframes #{$animationName} {
-      @content;
-    }
+  @-moz-keyframes #{$animationName} {
+    @content;
   }
+  @-o-keyframes #{$animationName} {
+    @content;
+  }
+  @keyframes #{$animationName} {
+    @content;
+  }
+}
+
+@mixin copper() {
+  color: white;
+  background: linear-gradient(45deg, white, #c1996e, #b5959a);
+}
+
+@mixin silver() {
+  color: white;
+  background: linear-gradient(45deg, white, #c4cace, #bec2cb);
+}
+
+@mixin gold() {
+  color: white;
+  background: linear-gradient(45deg, white, #ffd306, #eac100);
+}
+
+@mixin rainbow() {
+  color: white;
+  background: linear-gradient(0deg, #ffd306, #98c9d6, #8600ff);
+}

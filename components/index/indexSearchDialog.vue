@@ -102,7 +102,13 @@
                   </template>
 
                   <template v-if="item.img">
-                    <span> {{ item.img }}</span>
+                    <img
+                      :src="
+                        require(`../../static/images/common/${item.img}.png`)
+                      "
+                      style="max-width: 2.5em"
+                      alt=""
+                    />
                   </template>
 
                   <template v-if="item.hint">
@@ -133,6 +139,7 @@
 import teamJSON from '@/static/data/form/team'
 import fieldJSON from '@/static/data/form/field'
 import weatherJSON from '@/static/data/form/weather'
+import typeJSON from '@/static/data/form/type'
 export default {
   props: {
     searchDialog: { type: Boolean, default: false },
@@ -147,6 +154,7 @@ export default {
         { id: 'ovr', text: 'OVR' },
         { id: 'year', text: '年度' },
         { id: 'weather', text: '氣候' },
+        { id: 'type', text: '升級類型' },
       ],
       form: {
         name: '',
@@ -155,6 +163,7 @@ export default {
         ovr: [],
         year: [],
         weather: [],
+        type: [],
       },
       database: {
         name: '',
@@ -163,6 +172,7 @@ export default {
         ovr: [56, 92],
         year: [2007, 2020],
         weather: weatherJSON,
+        type: typeJSON,
       },
     }
   },
@@ -194,6 +204,7 @@ export default {
       this.$emit('setSearchModal', false)
     },
     resetField() {
+      this.currTab = JSON.parse(JSON.stringify({ id: 'name', text: '名稱' }))
       this.form.name = ''
       this.form.team = ['all']
       this.form.field = ['all']
@@ -204,6 +215,7 @@ export default {
       this.form.year.push(this.database.year[0])
       this.form.year.push(this.database.year[1])
       this.form.weather = ['all']
+      this.form.type = ['all']
     },
     changeList(item) {
       let currId = this.currTab.id
