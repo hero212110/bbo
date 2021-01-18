@@ -129,6 +129,7 @@
                   <div class="rect5"></div>
                 </div>
                 <template v-else>
+                  <img src="/images/common/logo.png" alt="" />
                   <p>請設定詳細搜尋項目或球員名稱</p>
                 </template>
               </div>
@@ -411,6 +412,7 @@ export default {
   .no-content-block {
     text-align: center;
     @include center;
+    pointer-events: none;
     .spinner {
       margin: 100px auto;
       width: 100px;
@@ -442,7 +444,6 @@ export default {
         animation-delay: -0.8s;
       }
     }
-
     @-webkit-keyframes sk-stretchdelay {
       0%,
       40%,
@@ -466,16 +467,16 @@ export default {
       }
     }
     > img {
-      width: 90px;
-      height: 90px;
+      width: 100%;
       display: block;
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
+      opacity: 0.5;
     }
     p {
       display: block;
-      margin: 120px 0 0 0;
+      margin: 200px 0 0 0;
       color: black;
       font-weight: 600;
       opacity: 0.8;

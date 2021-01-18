@@ -2,13 +2,13 @@ import colors from 'vuetify/es5/util/colors'
 export default {
   head: {
     titleTemplate: '%s - bbo',
-    title: 'bbo',
+    title: '全民打棒球PRO | 打者資料查詢系統',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/logo.ico' }],
   },
   css: ['@fortawesome/fontawesome-free/css/all.css'],
   plugins: [{ src: '~/plugins/common.js' }],
