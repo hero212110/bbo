@@ -1,0 +1,12 @@
+[
+  { "id": "all", "text": "所有的位置", "hint": "ALL" },
+  { "id": "dh", "text": "指定打擊", "hint": "DH" },
+  { "id": "c", "text": "捕手", "hint": "C" },
+  { "id": "1b", "text": "1壘手", "hint": "1B" },
+  { "id": "2b", "text": "2壘手", "hint": "2B" },
+  { "id": "3b", "text": "3壘手", "hint": "3B" },
+  { "id": "ss", "text": "游擊手", "hint": "SS" },
+  { "id": "lf", "text": "左外野手", "hint": "LF" },
+  { "id": "cf", "text": "中堅手", "hint": "CF" },
+  { "id": "rf", "text": "右外野手", "hint": "RF" }
+]
