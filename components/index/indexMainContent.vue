@@ -9,6 +9,8 @@
               v-for="(item, i) in shownPlayerList"
               :key="i"
               cols="12"
+              lg="4"
+              md="4"
               sm="3"
             >
               <div class="player-block">
@@ -25,14 +27,14 @@
                       alt=""
                     />
                     <span class="avatar-ovr">{{ item.ovr }}</span>
-                    <v-icon class="avatar-weather" :class="item.weather">
+                    <v-icon small class="avatar-weather" :class="item.weather">
                       fas fa-{{ $getWeatherIcon(item.weather) }}
                     </v-icon>
                     <span class="avatar-field">{{
                       item.field.toUpperCase()
                     }}</span>
                     <span class="avatar-name">
-                      {{ item.year.substr(2, 2) }} {{ item.name }}
+                      {{ `${item.year.substr(2, 2)}${item.name}` }}
                     </span>
 
                     <span :class="$getLevelColor(player.level)">
@@ -263,14 +265,16 @@ export default {
         }
         .avatar-ovr {
           position: absolute;
-          top: 0em;
-          right: 0.1em;
+          top: 0;
+          right: 1%;
+          font-size: 1vw;
           -webkit-text-stroke: 0.5px black;
         }
         .avatar-weather {
           position: absolute;
           top: 15%;
-          right: 0.1em;
+          right: 3%;
+          transform: translateX(3%);
           &.sun {
             color: red;
           }
@@ -290,21 +294,22 @@ export default {
         .avatar-field {
           position: absolute;
           bottom: 20%;
-          right: 0.5em;
+          right: 1%;
+          font-size: 1vw;
           -webkit-text-stroke: 0.8px black;
         }
         .avatar-name {
           position: absolute;
-          left: 15%;
-          bottom: 0.4em;
-          width: 100%;
+          bottom: 5%;
+          left: 17%;
+          font-size: 1vw;
         }
         > span:last-child {
           position: absolute;
-          left: 0.3em;
-          bottom: 2.5em;
+          left: 2%;
+          bottom: 22%;
           font-weight: 700;
-          font-size: 0.8em;
+          font-size: 1vw;
           padding: 2px 6px;
           border: 0.5px solid #3c3c3c;
           border-radius: 4px;

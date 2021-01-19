@@ -17,6 +17,9 @@ const mutations = {
   SET_YEAR_MEMBER(state, val) {
     state.member.year = val
   },
+  SET_EXTRA_MEMBER(state, val) {
+    state.member.extra = val
+  },
 }
 
 export default mutations

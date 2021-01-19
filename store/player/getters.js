@@ -1,5 +1,6 @@
 import levelList from '@/static/data/upgrade/level.json'
 import teamList from '@/static/data/upgrade/team.json'
+import extraList from '@/static/data/upgrade/extra.json'
 
 const getters = {
   GetUpgradedPlayerList: (state) => {
@@ -40,6 +41,15 @@ const getters = {
       tmp.forEach((item) => {
         let arr = teamList.YEAR[state.member.year]
         console.log(arr)
+        for (let i = 0; i < statusList.length; i++) {
+          item[statusList[i]] += arr[i]
+        }
+      })
+    }
+
+    if (state.member.extra) {
+      tmp.forEach((item) => {
+        let arr = extraList[state.member.extra]
         for (let i = 0; i < statusList.length; i++) {
           item[statusList[i]] += arr[i]
         }

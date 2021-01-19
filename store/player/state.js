@@ -5,6 +5,7 @@ const state = () => ({
   member: {
     as: 0,
     year: 0,
+    extra: null,
   },
   loading: false,
 })

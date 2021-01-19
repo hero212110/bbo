@@ -7,6 +7,8 @@
             <v-icon left>fas fa-search</v-icon>
             <span>詳細搜尋</span>
           </v-btn>
+        </li>
+        <li>
           <v-btn color="error" class="ma-2 white--text" @click="clearList">
             <v-icon left>fas fa-trash</v-icon>
             <span>清空列表</span>
@@ -14,26 +16,28 @@
         </li>
         <li>
           <div>
-            <v-btn
-              small
-              fab
-              color="error"
-              class="ma-2 white--text"
-              @click="minusLevel"
-            >
-              <v-icon>fas fa-minus</v-icon>
-            </v-btn>
             <span>當前等級 : {{ player.level }}</span>
-            <v-btn
-              small
-              fab
-              color="success"
-              class="ma-2 white--text"
-              @click="addLevel"
-            >
-              <v-icon>fas fa-plus</v-icon>
-            </v-btn>
           </div>
+        </li>
+        <li>
+          <v-btn
+            small
+            fab
+            color="error"
+            class="ma-2 white--text"
+            @click="minusLevel"
+          >
+            <v-icon>fas fa-minus</v-icon>
+          </v-btn>
+          <v-btn
+            small
+            fab
+            color="success"
+            class="ma-2 white--text"
+            @click="addLevel"
+          >
+            <v-icon>fas fa-plus</v-icon>
+          </v-btn>
         </li>
         <li style="width: 90%">
           <v-select
@@ -44,12 +48,23 @@
             dense
             solo
           ></v-select>
+        </li>
+        <li style="width: 90%">
           <v-select
-            style="padding-left: 5%"
             v-model="yearVal"
             :items="yearList"
             label="相同年度"
             prepend-icon="far fa-clock"
+            dense
+            solo
+          ></v-select>
+        </li>
+        <li style="width: 90%">
+          <v-select
+            v-model="extraVal"
+            :items="extraList"
+            label="額外加成"
+            prepend-icon="fas fa-star"
             dense
             solo
           ></v-select>
@@ -64,8 +79,14 @@ export default {
   data: () => ({
     asVal: 0,
     yearVal: 0,
+    extraVal: null,
     asList: [0, 28],
     yearList: [0, 15, 20, 24, 28],
+    extraList: [
+      { text: '無加成', value: null },
+      { text: '力5打5速5速5', value: 'SPEED' },
+      { text: '力5打5速5傳5', value: 'THROW' },
+    ],
   }),
   computed: {
     ...mapState(['player']),
@@ -76,6 +97,9 @@ export default {
     },
     yearVal(val) {
       this.$store.commit('player/SET_YEAR_MEMBER', val)
+    },
+    extraVal(val) {
+      this.$store.commit('player/SET_EXTRA_MEMBER', val)
     },
   },
   methods: {
@@ -108,6 +132,7 @@ export default {
   > li {
     display: flex;
     justify-content: center;
+    align-items: center;
   }
 }
 </style>
