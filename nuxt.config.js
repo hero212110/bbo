@@ -1,5 +1,6 @@
 import colors from 'vuetify/es5/util/colors'
 export default {
+  ssr: false,
   head: {
     titleTemplate: '',
     title: '全民打棒球PRO | 打者資料查詢系統',
