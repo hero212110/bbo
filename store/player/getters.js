@@ -20,7 +20,6 @@ const getters = {
     if (state.level) {
       tmp.forEach((item) => {
         let arr = levelList[item.type][state.level]
-        console.log(arr)
         for (let i = 0; i < statusList.length; i++) {
           item[statusList[i]] += arr[i]
         }
@@ -30,7 +29,6 @@ const getters = {
     if (state.member.as) {
       tmp.forEach((item) => {
         let arr = teamList.ALLSTAR[state.member.as]
-        console.log(arr)
         for (let i = 0; i < statusList.length; i++) {
           item[statusList[i]] += arr[i]
         }
@@ -40,7 +38,6 @@ const getters = {
     if (state.member.year) {
       tmp.forEach((item) => {
         let arr = teamList.YEAR[state.member.year]
-        console.log(arr)
         for (let i = 0; i < statusList.length; i++) {
           item[statusList[i]] += arr[i]
         }

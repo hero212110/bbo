@@ -1,12 +1,20 @@
+import player2008 from '@/static/data/player/2008.json'
 import player2011 from '@/static/data/player/2011.json'
 import player2012 from '@/static/data/player/2012.json'
+import player2013 from '@/static/data/player/2013.json'
+import player2014 from '@/static/data/player/2014.json'
+import player2015 from '@/static/data/player/2015.json'
+
 const fullPlayer = {
+  player2008,
   player2011,
   player2012,
+  player2013,
+  player2014,
+  player2015,
 }
 class PlayerService {
   static async getPlayerList(params) {
-    console.log(params)
     let { field, name, ovr, team, weather, type, year } = params
     try {
       let minYeaR = year[0]
@@ -24,7 +32,6 @@ class PlayerService {
       players = filterSelection('type', type, players)
       players = filterRange('ovr', ovr, players)
       players = filterText('name', name, players)
-      console.log(players)
       return players
     } catch (error) {
       return error
@@ -41,7 +48,6 @@ function filterSelection(type, key, list) {
   //進行過濾
   else {
     //['brothers','lions']
-    console.log(list)
     list = list.filter((item) => {
       if (key.includes(item[type])) {
         return item

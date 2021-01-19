@@ -1,6 +1,6 @@
 [
   { "id": "all", "text": "所有球團", "img": "cpbl" },
-  { "id": "ctbc_brothers", "text": "中信兄弟", "img": "ctbc-brothers" },
+  { "id": "ctbc_brothers", "text": "中信兄弟", "img": "ctbc_brothers" },
   { "id": "brothers", "text": "兄弟象", "img": "brothers" },
   { "id": "lions", "text": "統一 7-ELEVEN 獅", "img": "lions" }
 ]

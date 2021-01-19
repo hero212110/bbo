@@ -1,7 +1,7 @@
 import colors from 'vuetify/es5/util/colors'
 export default {
   head: {
-    titleTemplate: '%s - bbo',
+    titleTemplate: '',
     title: '全民打棒球PRO | 打者資料查詢系統',
     meta: [
       { charset: 'utf-8' },

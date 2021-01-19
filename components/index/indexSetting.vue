@@ -14,7 +14,7 @@
             <span>清空列表</span>
           </v-btn>
         </li>
-        <li>
+        <li style="width:40%">
           <div>
             <span>當前等級 : {{ player.level }}</span>
           </div>
@@ -23,7 +23,7 @@
           <v-btn
             small
             fab
-            color="error"
+            color="primary"
             class="ma-2 white--text"
             @click="minusLevel"
           >

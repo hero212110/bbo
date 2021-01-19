@@ -62,7 +62,7 @@
             </v-col>
             <v-col cols="12" sm="12">
               <div style="width: 100%; height: 50px">
-                <ul class="custom-pagnition">
+                <ul class="custom-pagnition" :class="{ mobile: isMobile }">
                   <li
                     @click="currPagination = 1"
                     :class="{
@@ -158,26 +158,34 @@ export default {
     ],
     currPagination: 1,
     paginationLimit: 5,
+    maxCard: 12,
   }),
   computed: {
     ...mapState(['player']),
     ...mapGetters('player', {
       upgradedPlayerList: 'GetUpgradedPlayerList',
     }),
+    isMobile() {
+      let tmp = document.body.clientWidth < 500 ? true : false
+      return tmp
+    },
     shownPlayerList() {
       let tmp =
         this.upgradedPlayerList.length > 0 ? this.upgradedPlayerList : []
       let c = this.currPagination
       let result = []
       if (c == 1) {
-        result = tmp.slice(0, 12)
+        result = tmp.slice(0, this.maxCard)
       } else {
         if (c != this.upgradedPlayerList.length) {
-          result = tmp.slice(12 * (c - 1), 12 * c)
+          result = tmp.slice(this.maxCard * (c - 1), this.maxCard * c)
         }
         //last page
         else {
-          result = tmp.slice(12 * (c - 1), 12 * (c - 1) + (tmp.length % 12) - 1)
+          result = tmp.slice(
+            this.maxCard * (c - 1),
+            this.maxCard * (c - 1) + (tmp.length % this.maxCard) - 1
+          )
         }
       }
       return result
@@ -185,7 +193,7 @@ export default {
     pagnitionList() {
       let tmp =
         this.upgradedPlayerList.length > 0 ? this.upgradedPlayerList : []
-      let len = Math.ceil(tmp.length / 12)
+      let len = Math.ceil(tmp.length / this.maxCard)
       let arr = []
       for (let i = 0; i < len; i++) {
         arr.push(i + 1)
@@ -228,6 +236,9 @@ export default {
         this.currPagination += 1
     },
   },
+  mounted() {
+    this.isMobile && (this.maxCard = 5)
+  },
 }
 </script>
 <style lang="scss" scoped>
@@ -240,8 +251,9 @@ export default {
   .player-block {
     display: flex;
     flex-wrap: wrap;
-    border: 1.5px solid orange;
+    // border: 1.5px solid orange;
     border-radius: 4px;
+    box-shadow: 0 0 5px #333;
     font-weight: 600;
     .header {
       display: flex;
@@ -375,6 +387,17 @@ export default {
     color: white;
     display: flex;
     justify-content: center;
+    padding: 0 10%;
+    position: absolute;
+    bottom: 1vh;
+    left: 50%;
+    transform: translateX(-50%);
+    &.mobile {
+      position: relative;
+      > li {
+        padding: 2px 2vw 2px 2vw;
+      }
+    }
     > li {
       float: left;
       height: 38px;
@@ -384,7 +407,7 @@ export default {
       border: white solid 1px;
       background: linear-gradient(45deg, white, #c4cace, #bec2cb);
       color: black;
-      padding: 2px 18px 2px 18px;
+      padding: 2px 1vw 2px 1vw;
       border-radius: 10px;
       cursor: pointer;
       display: flex;
@@ -408,7 +431,6 @@ export default {
       &.custom-pagnition-li-disabled {
         background: none;
         color: rgba(160, 156, 156, 0.667);
-        // border: none !important;
         cursor: not-allowed;
         opacity: 0.5;
       }

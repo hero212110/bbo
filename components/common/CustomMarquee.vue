@@ -35,7 +35,6 @@ export default {
       },
       time: 0,
       name: `marquee${count}`,
-      styleEl: document.createElement('style'),
     }
   },
   computed: {
@@ -82,8 +81,10 @@ export default {
                 from { ${from} }
                 to { ${to} }
             }`
-      this.styleEl.innerHTML = v
-      document.head.appendChild(this.styleEl)
+
+      let styleEl = document.createElement('style')
+      styleEl.innerHTML = v
+      document.head.appendChild(styleEl)
     },
     start() {
       this.$nextTick(() => {

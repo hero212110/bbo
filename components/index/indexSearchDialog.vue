@@ -196,7 +196,6 @@ export default {
       this.resetField()
     },
     doSearch() {
-      // console.log(this.form)
       this.$store.commit('player/SET_LOADING', true)
       this.$store.commit('player/CLEAR_PLAYER_LIST')
       this.$store.dispatch('player/fetchPlayerList', this.form)

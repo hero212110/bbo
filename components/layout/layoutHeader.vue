@@ -1,9 +1,9 @@
 <template>
   <v-app-bar app color="white" flat>
-    <!-- <custom-marquee
+    <custom-marquee
       :announcementList="announcementList"
       :speed="80"
-    ></custom-marquee> -->
+    ></custom-marquee>
   </v-app-bar>
 </template>
 <script>
