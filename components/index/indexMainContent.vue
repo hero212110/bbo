@@ -297,7 +297,7 @@ export default {
             color: #66b3ff;
           }
           &.rain {
-            color: blue;
+            color: #0080ff;
           }
           &.none {
             color: green;
@@ -313,7 +313,7 @@ export default {
         .avatar-name {
           position: absolute;
           bottom: 5%;
-          left: 17%;
+          left: 25%;
           font-size: 1vw;
         }
         > span:last-child {

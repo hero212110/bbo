@@ -10,6 +10,7 @@
 <script>
 import layoutHeader from '@/components/layout/layoutHeader'
 export default {
+  name: 'default',
   data: () => ({}),
 }
 </script>

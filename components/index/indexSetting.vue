@@ -14,7 +14,19 @@
             <span>清空列表</span>
           </v-btn>
         </li>
-        <li style="width:40%">
+        <li>
+          <v-btn class="ma-2 white--text rainbow" @click="justifyPlus(true)">
+            <v-icon left>fas fa-fire</v-icon>
+            <span>最高加成</span>
+          </v-btn>
+        </li>
+        <li>
+          <v-btn class="ma-2 white--text copper" @click="justifyPlus(false)">
+            <v-icon left>fas fa-broom</v-icon>
+            <span>清除加成</span>
+          </v-btn>
+        </li>
+        <li style="width: 40%">
           <div>
             <span>當前等級 : {{ player.level }}</span>
           </div>
@@ -101,6 +113,14 @@ export default {
     extraVal(val) {
       this.$store.commit('player/SET_EXTRA_MEMBER', val)
     },
+    'player.member': {
+      handler(val) {
+        this.asVal = val.as
+        this.yearVal = val.year
+        this.extraVal = val.extra
+      },
+      deep: true,
+    },
   },
   methods: {
     setSearchModal() {
@@ -119,6 +139,9 @@ export default {
         this.$store.commit('player/SET_LEVEL', -1)
       }
     },
+    justifyPlus(val) {
+      this.$store.commit('player/JUSTIFY_PLUS', val)
+    },
   },
 }
 </script>
@@ -133,6 +156,12 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    .rainbow {
+      @include rainbow;
+    }
+    .copper {
+      @include copper;
+    }
   }
 }
 </style>

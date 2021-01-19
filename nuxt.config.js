@@ -4,6 +4,7 @@ export default {
   head: {
     titleTemplate: '',
     title: '全民打棒球PRO | 打者資料查詢系統',
+    htmlAttrs: { lang: 'zh-Hant-TW' },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },

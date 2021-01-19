@@ -21,20 +21,58 @@
 
 @mixin copper() {
   color: white;
-  background: linear-gradient(45deg, white, #c1996e, #b5959a);
+  -webkit-text-stroke: 1px black;
+  background: linear-gradient(
+    45deg,
+    #ca7345,
+    #ffdeca 16%,
+    #ca7345 21%,
+    #ffdeca 24%,
+    #a14521 27%,
+    #ca7345 36%,
+    #ffdeca 45%,
+    #ffdeca 60%,
+    #ca7345 72%,
+    #ffdeca 80%,
+    #ca7345 84%,
+    #732100
+  );
 }
 
 @mixin silver() {
   color: white;
-  background: linear-gradient(45deg, white, #c4cace, #bec2cb);
+  -webkit-text-stroke: 1px black;
+  background: linear-gradient(
+    45deg,
+    #dedede,
+    #ffffff 16%,
+    #dedede 21%,
+    #ffffff 24%,
+    #dedede 36%,
+    #ffffff 45%,
+    #ffffff 60%,
+    #dedede 72%,
+    #ffffff 80%,
+    #dedede 84%,
+    #a1a1a1
+  );
 }
 
 @mixin gold() {
   color: white;
-  background: linear-gradient(45deg, white, #ffd306, #eac100);
+  -webkit-text-stroke: 1px black;
+  background: linear-gradient(
+    45deg,
+    #bf953f,
+    #fcf6ba,
+    #b38728,
+    #fbf5b7,
+    #aa771c
+  );
 }
 
 @mixin rainbow() {
   color: white;
+  -webkit-text-stroke: 1px black;
   background: linear-gradient(0deg, #ffd306, #98c9d6, #8600ff);
 }
