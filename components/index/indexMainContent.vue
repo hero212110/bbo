@@ -345,7 +345,7 @@ export default {
           left: 2%;
           bottom: 22%;
           font-weight: 700;
-          font-size: 1vw;
+          font-size: 1em;
           padding: 2px 6px;
           border: 0.5px solid #3c3c3c;
           border-radius: 4px;
