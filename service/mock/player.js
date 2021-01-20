@@ -8,6 +8,9 @@ import player2013 from '@/static/data/player/2013.json'
 import player2014 from '@/static/data/player/2014.json'
 import player2015 from '@/static/data/player/2015.json'
 import player2016 from '@/static/data/player/2016.json'
+import player2017 from '@/static/data/player/2017.json'
+import player2018 from '@/static/data/player/2018.json'
+import player2019 from '@/static/data/player/2019.json'
 
 const fullPlayer = {
   player2007,
@@ -20,6 +23,9 @@ const fullPlayer = {
   player2014,
   player2015,
   player2016,
+  player2017,
+  player2018,
+  player2019,
 }
 class PlayerService {
   static async getPlayerList(params) {

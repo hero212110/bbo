@@ -3,7 +3,7 @@ const mutations = {
     state.loading = val
   },
   SET_PLAYER_LIST(state, val) {
-    state.playerList = val
+    state.playerList = JSON.parse(JSON.stringify(val))
   },
   CLEAR_PLAYER_LIST(state) {
     state.playerList = []

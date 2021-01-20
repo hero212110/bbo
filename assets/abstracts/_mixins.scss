@@ -76,3 +76,40 @@
   -webkit-text-stroke: 1px black;
   background: linear-gradient(0deg, #ffd306, #98c9d6, #8600ff);
 }
+@mixin purple-bg {
+  background: linear-gradient(
+    180deg,
+    #be77ff,
+    #8600ff 75%,
+    #ffffff 80%,
+    black 85%
+  );
+}
+@mixin red-bg {
+  background: linear-gradient(
+    180deg,
+    #d4292e,
+    #72060a 75%,
+    #ffffff 80%,
+    black 85%
+  );
+}
+@mixin orange-bg {
+  background: linear-gradient(
+    180deg,
+    #ffa042,
+    #db7202 75%,
+    #ffffff 80%,
+    black 85%
+  );
+}
+
+@mixin blue-bg {
+  background: linear-gradient(
+    180deg,
+    #46a3ff,
+    #005ab5 75%,
+    #ffffff 80%,
+    black 85%
+  );
+}

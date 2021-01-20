@@ -122,6 +122,9 @@
       </v-card-text>
 
       <v-card-actions style="margin-top: 50px">
+        <v-switch style="padding-left: 3%" v-model="save" inset></v-switch>
+        <v-icon v-if="isMobile" color="success">fas fa-save</v-icon>
+        <span v-if="!isMobile" class="save-txt">保存紀錄</span>
         <v-spacer></v-spacer>
         <v-btn color="warning" class="ma-2 white--text" @click="resetField">
           <v-icon left>fas fa-sync-alt</v-icon>
@@ -146,6 +149,7 @@ export default {
   },
   data() {
     return {
+      save: false,
       currTab: { id: 'name', text: '名稱' },
       tabList: [
         { id: 'name', text: '球員名' },
@@ -189,6 +193,10 @@ export default {
       let arr = ['name', 'ovr', 'year']
       return arr.includes(this.currTab.id)
     },
+    isMobile() {
+      let tmp = document.body.clientWidth < 500 ? true : false
+      return tmp
+    },
   },
   methods: {
     setSearchModal() {
@@ -203,18 +211,20 @@ export default {
       this.$emit('setSearchModal', false)
     },
     resetField() {
-      this.currTab = JSON.parse(JSON.stringify({ id: 'name', text: '名稱' }))
-      this.form.name = ''
-      this.form.team = ['all']
-      this.form.field = ['all']
-      this.form.ovr = []
-      this.form.ovr.push(this.database.ovr[0])
-      this.form.ovr.push(this.database.ovr[1])
-      this.form.year = []
-      this.form.year.push(this.database.year[0])
-      this.form.year.push(this.database.year[1])
-      this.form.weather = ['all']
-      this.form.type = ['all']
+      if (!this.save) {
+        this.currTab = JSON.parse(JSON.stringify({ id: 'name', text: '名稱' }))
+        this.form.name = ''
+        this.form.team = ['all']
+        this.form.field = ['all']
+        this.form.ovr = []
+        this.form.ovr.push(this.database.ovr[0])
+        this.form.ovr.push(this.database.ovr[1])
+        this.form.year = []
+        this.form.year.push(this.database.year[0])
+        this.form.year.push(this.database.year[1])
+        this.form.weather = ['all']
+        this.form.type = ['all']
+      }
     },
     changeList(item) {
       let currId = this.currTab.id
@@ -313,6 +323,10 @@ export default {
         }
       }
     }
+  }
+  .save-txt {
+    pointer-events: none;
+    font-weight: 600;
   }
 }
 </style>

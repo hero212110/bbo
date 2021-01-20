@@ -16,10 +16,18 @@
               <div class="player-block">
                 <div class="header">
                   <span>{{ item.year }} {{ item.name }}</span>
-                  <span>{{ $getIdText(item.field) }} {{ item.ovr }}</span>
+                  <span>{{ $getIdText(item.field) }} {{ item.ovr }} </span>
                 </div>
                 <div class="left">
-                  <div class="avatar-container">
+                  <div
+                    class="avatar-container"
+                    :class="
+                      $getCardColor(
+                        player.playerList[i + (currPagination - 1) * maxCard]
+                          .ovr
+                      )
+                    "
+                  >
                     <img
                       :src="
                         require(`../../static/images/player/${item.team}.png`)
@@ -30,9 +38,9 @@
                     <v-icon small class="avatar-weather" :class="item.weather">
                       fas fa-{{ $getWeatherIcon(item.weather) }}
                     </v-icon>
-                    <span class="avatar-field">{{
-                      item.field.toUpperCase()
-                    }}</span>
+                    <span class="avatar-field">
+                      {{ item.field.toUpperCase() }}
+                    </span>
                     <span class="avatar-name">
                       {{ `${item.year.substr(2, 2)}${item.name}` }}
                     </span>
@@ -251,7 +259,6 @@ export default {
   .player-block {
     display: flex;
     flex-wrap: wrap;
-    // border: 1.5px solid orange;
     border-radius: 4px;
     box-shadow: 0 0 5px #333;
     font-weight: 600;
@@ -266,14 +273,31 @@ export default {
     .left {
       display: flex;
       flex-wrap: wrap;
-      width: 40%;
+      width: 35%;
       padding: 0 10px 10px 10px;
       .avatar-container {
         width: 100%;
+        min-height: 170px;
         position: relative;
+        border-radius: 4px;
         color: white;
+        &.purple {
+          @include purple-bg;
+        }
+        &.red {
+          @include red-bg;
+        }
+        &.orange {
+          @include orange-bg;
+        }
+        &.blue {
+          @include blue-bg;
+        }
+
         > img {
-          width: 100%;
+          max-width: 100%;
+          height: 80%;
+          padding-left: 5%;
         }
         .avatar-ovr {
           position: absolute;
@@ -284,9 +308,9 @@ export default {
         }
         .avatar-weather {
           position: absolute;
-          top: 15%;
-          right: 3%;
-          transform: translateX(3%);
+          top: 16%;
+          right: 4%;
+          transform: translateX(4%);
           &.sun {
             color: red;
           }
@@ -312,7 +336,7 @@ export default {
         }
         .avatar-name {
           position: absolute;
-          bottom: 5%;
+          bottom: 3%;
           left: 25%;
           font-size: 1vw;
         }
@@ -353,8 +377,9 @@ export default {
     .right {
       display: flex;
       flex-wrap: wrap;
-      width: 60%;
+      width: 65%;
       font-size: 0.5em;
+      font-weight: 800;
       > ul {
         list-style: none;
         width: 100%;

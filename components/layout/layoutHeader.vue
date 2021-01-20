@@ -15,11 +15,11 @@ export default {
     announcementList: [
       {
         text:
-          '本網站使用之球員卡資料皆屬 netmarble Joybomb 、 netmarble Npark 所有 , 只供玩家查詢球員卡資料使用 , 不得用於商業用途',
+          '本網站使用之圖片和球員卡資料皆屬 netmarble Joybomb 、 netmarble Npark 所有 , 只供玩家查詢球員卡資料使用 , 不得用於商業用途',
       },
       {
         text:
-          'The baseball player card data in this website are belong to netmarble Joybomb and netmarble Npark , do not use for commercial purpose',
+          'The images and baseball player card data in this website are belong to netmarble Joybomb and netmarble Npark , do not use for commercial purpose',
       },
     ],
   }),

@@ -21,7 +21,7 @@ export default ({ app, store }, inject) => {
       params > 110
         ? 'yellow'
         : params > 100
-        ? '#8600FF'
+        ? '#7E44EC'
         : params > 90
         ? 'red'
         : params > 80
@@ -44,6 +44,19 @@ export default ({ app, store }, inject) => {
         : params >= 1
         ? 'copper'
         : 'none'
+    return color
+  })
+
+  inject('getCardColor', (params) => {
+    let color = ''
+    color =
+      params > 80
+        ? 'purple'
+        : params > 75
+        ? 'red'
+        : params > 70
+        ? 'orange'
+        : 'blue'
     return color
   })
 
