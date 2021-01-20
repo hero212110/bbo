@@ -21,6 +21,7 @@
                 <div class="left">
                   <div
                     class="avatar-container"
+                    :style="{ 'font-size': isMobile ? '0.5em' : '1em' }"
                     :class="
                       $getCardColor(
                         player.playerList[i + (currPagination - 1) * maxCard]
@@ -281,6 +282,7 @@ export default {
         position: relative;
         border-radius: 4px;
         color: white;
+        font-size: 1em;
         &.purple {
           @include purple-bg;
         }
@@ -293,7 +295,6 @@ export default {
         &.blue {
           @include blue-bg;
         }
-
         > img {
           max-width: 100%;
           height: 80%;
@@ -303,7 +304,6 @@ export default {
           position: absolute;
           top: 0;
           right: 1%;
-          font-size: 1vw;
           -webkit-text-stroke: 0.5px black;
         }
         .avatar-weather {
@@ -331,14 +331,12 @@ export default {
           position: absolute;
           bottom: 20%;
           right: 1%;
-          font-size: 1vw;
           -webkit-text-stroke: 0.8px black;
         }
         .avatar-name {
           position: absolute;
           bottom: 3%;
           left: 25%;
-          font-size: 1vw;
         }
         > span:last-child {
           position: absolute;
