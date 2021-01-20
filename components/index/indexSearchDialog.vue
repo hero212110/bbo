@@ -106,7 +106,7 @@
                       :src="
                         require(`../../static/images/common/${item.img}.png`)
                       "
-                      style="max-width: 2.5em"
+                      style="max-width:11%"
                       alt=""
                     />
                   </template>

@@ -21,7 +21,7 @@
                 <div class="left">
                   <div
                     class="avatar-container"
-                    :style="{ 'font-size': isMobile ? '0.5em' : '1em' }"
+                    :style="{ 'font-size': isMobile ? '0.6em' : '1em' }"
                     :class="
                       $getCardColor(
                         player.playerList[i + (currPagination - 1) * maxCard]
@@ -335,8 +335,10 @@ export default {
         }
         .avatar-name {
           position: absolute;
-          bottom: 3%;
-          left: 25%;
+          bottom: 2%;
+          left: 50%;
+          transform: translateX(-50%);
+          font-size: 1em;
         }
         > span:last-child {
           position: absolute;
