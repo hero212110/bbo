@@ -21,7 +21,7 @@
 
 @mixin copper() {
   color: white;
-  -webkit-text-stroke: 1px black;
+  text-shadow: 0 0 3px black;
   background: linear-gradient(
     45deg,
     #ca7345,
@@ -41,7 +41,7 @@
 
 @mixin silver() {
   color: white;
-  -webkit-text-stroke: 1px black;
+  text-shadow: 0 0 3px black;
   background: linear-gradient(
     45deg,
     #dedede,
@@ -60,7 +60,7 @@
 
 @mixin gold() {
   color: white;
-  -webkit-text-stroke: 1px black;
+  text-shadow: 0 0 3px black;
   background: linear-gradient(
     45deg,
     #bf953f,
@@ -73,34 +73,34 @@
 
 @mixin rainbow() {
   color: white;
-  -webkit-text-stroke: 1px black;
+  text-shadow: 0 0 3px black;
   background: linear-gradient(0deg, #ffd306, #98c9d6, #8600ff);
 }
 @mixin purple-bg {
   background: linear-gradient(
     180deg,
     #be77ff,
-    #8600ff 75%,
-    #ffffff 80%,
-    black 85%
+    #8600ff 80%,
+    #ffffff 81%,
+    black 82%
   );
 }
 @mixin red-bg {
   background: linear-gradient(
     180deg,
     #d4292e,
-    #72060a 75%,
-    #ffffff 80%,
-    black 85%
+    #72060a 80%,
+    #ffffff 81%,
+    black 82%
   );
 }
 @mixin orange-bg {
   background: linear-gradient(
     180deg,
     #ffa042,
-    #db7202 75%,
-    #ffffff 80%,
-    black 85%
+    #db7202 80%,
+    #ffffff 81%,
+    black 82%
   );
 }
 
@@ -108,8 +108,8 @@
   background: linear-gradient(
     180deg,
     #46a3ff,
-    #005ab5 75%,
-    #ffffff 80%,
-    black 85%
+    #005ab5 80%,
+    #ffffff 81%,
+    black 82%
   );
 }

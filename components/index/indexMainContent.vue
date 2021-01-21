@@ -29,26 +29,35 @@
                       )
                     "
                   >
-                    <img
-                      :src="
-                        require(`../../static/images/player/${item.team}.png`)
-                      "
-                      alt=""
-                    />
-                    <span class="avatar-ovr">{{ item.ovr }}</span>
-                    <v-icon small class="avatar-weather" :class="item.weather">
-                      fas fa-{{ $getWeatherIcon(item.weather) }}
-                    </v-icon>
-                    <span class="avatar-field">
-                      {{ item.field.toUpperCase() }}
-                    </span>
-                    <span class="avatar-name">
-                      {{ `${item.year.substr(2, 2)}${item.name}` }}
-                    </span>
+                    <div class="avatar-pic">
+                      <img
+                        :src="
+                          require(`../../static/images/player/${item.team}.png`)
+                        "
+                        alt=""
+                      />
+                      <span class="avatar-ovr">{{ item.ovr }}</span>
 
-                    <span :class="$getLevelColor(player.level)">
-                      +{{ player.level }}
-                    </span>
+                      <v-icon
+                        small
+                        class="avatar-weather"
+                        :class="item.weather"
+                      >
+                        fas fa-{{ $getWeatherIcon(item.weather) }}
+                      </v-icon>
+                      <span class="avatar-field">
+                        {{ item.field.toUpperCase() }}
+                      </span>
+                      <span :class="$getLevelColor(player.level)">
+                        +{{ player.level }}
+                      </span>
+                    </div>
+
+                    <div class="avatar-name">
+                      <span>
+                        {{ `${item.year.substr(2, 2)}${item.name}` }}
+                      </span>
+                    </div>
                   </div>
 
                   <div class="avatar-info">
@@ -254,7 +263,7 @@ export default {
 .wrapper {
   background: #e0e0e0;
   // font-family: Arial, Helvetica, sans-serif;
-  font-family: Microsoft JhengHei;
+  font-family: Overpass;
   min-height: 90vh;
   position: relative;
   .player-block {
@@ -295,74 +304,85 @@ export default {
         &.blue {
           @include blue-bg;
         }
-        > img {
-          max-width: 100%;
+
+        .avatar-pic {
+          width: 100%;
           height: 80%;
-          padding-left: 5%;
-        }
-        .avatar-ovr {
-          position: absolute;
-          top: 0;
-          right: 1%;
-          -webkit-text-stroke: 0.5px black;
-        }
-        .avatar-weather {
-          position: absolute;
-          top: 16%;
-          right: 4%;
-          transform: translateX(4%);
-          &.sun {
-            color: red;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: relative;
+          > img {
+            width: 80%;
+            min-height: 100%;
           }
-          &.cloud {
-            color: #f0f0f0;
+          .avatar-ovr {
+            position: absolute;
+            top: 0;
+            right: 2%;
+            text-shadow: 0 0 3px black;
           }
-          &.snow {
-            color: #66b3ff;
+          .avatar-weather {
+            position: absolute;
+            top: 16%;
+            right: 2%;
+            transform: translateX(4%);
+            &.sun {
+              color: red;
+            }
+            &.cloud {
+              color: #f0f0f0;
+            }
+            &.snow {
+              color: #66b3ff;
+            }
+            &.rain {
+              color: #0080ff;
+            }
+            &.none {
+              color: green;
+            }
           }
-          &.rain {
-            color: #0080ff;
+          .avatar-field {
+            position: absolute;
+            bottom: 2%;
+            right: 2%;
+            text-shadow: 0 0 3px black;
           }
-          &.none {
-            color: green;
+          > span:last-child {
+            position: absolute;
+            left: 2%;
+            bottom: 2%;
+            font-weight: 700;
+            font-size: 1em;
+            padding: 2px 6px;
+            border: 0.5px solid #3c3c3c;
+            border-radius: 4px;
+            &.none {
+              display: none;
+            }
+            &.copper {
+              @include copper;
+            }
+            &.silver {
+              @include silver;
+            }
+            &.gold {
+              @include gold;
+            }
+            &.rainbow {
+              @include rainbow;
+            }
           }
-        }
-        .avatar-field {
-          position: absolute;
-          bottom: 20%;
-          right: 1%;
-          -webkit-text-stroke: 0.8px black;
         }
         .avatar-name {
-          position: absolute;
-          bottom: 2%;
-          left: 50%;
-          transform: translateX(-50%);
-          font-size: 1em;
-        }
-        > span:last-child {
-          position: absolute;
-          left: 2%;
-          bottom: 22%;
-          font-weight: 700;
-          font-size: 1em;
-          padding: 2px 6px;
-          border: 0.5px solid #3c3c3c;
-          border-radius: 4px;
-          &.none {
-            display: none;
-          }
-          &.copper {
-            @include copper;
-          }
-          &.silver {
-            @include silver;
-          }
-          &.gold {
-            @include gold;
-          }
-          &.rainbow {
-            @include rainbow;
+          width: 100%;
+          height: 20%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          > span {
+            font-size: 100%;
           }
         }
       }
