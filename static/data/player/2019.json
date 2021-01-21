@@ -150,5 +150,24 @@
     "throw_power": 65,
     "throw_skill": 64,
     "dex": 68
+  },
+  {
+    "id": "2019-ctbc_brothers-9",
+    "team": "ctbc_brothers",
+    "year": "2019",
+    "name": "林書逸",
+    "type": "p-sa",
+    "side": "r-l",
+    "field": "lf",
+    "weather": "rain",
+    "ovr": 75,
+    "power": 75,
+    "contact": 74,
+    "base_speed": 80,
+    "defense_speed": 74,
+    "defense_range": 70,
+    "throw_power": 62,
+    "throw_skill": 62,
+    "dex": 72
   }
 ]

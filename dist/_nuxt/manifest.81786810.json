@@ -1,7 +1,7 @@
 {
   "name": "bbo",
   "short_name": "bbo",
-  "description": "## Build Setup",
+  "description": "```bash\r # install dependencies\r $ npm install",
   "icons": [
     {
       "src": "/_nuxt/icons/icon_64x64.8cf546.png",

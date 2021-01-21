@@ -8,14 +8,14 @@
     "side": "r-r",
     "field": "2b",
     "weather": "snow",
-    "ovr": 76,
-    "power": 73,
-    "contact": 77,
+    "ovr": 80,
+    "power": 76,
+    "contact": 79,
     "base_speed": 84,
     "defense_speed": 81,
-    "defense_range": 75,
-    "throw_power": 74,
-    "throw_skill": 72,
-    "dex": 73
+    "defense_range": 78,
+    "throw_power": 77,
+    "throw_skill": 75,
+    "dex": 78
   }
 ]

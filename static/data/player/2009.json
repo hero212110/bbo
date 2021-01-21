@@ -74,5 +74,24 @@
     "throw_power": 67,
     "throw_skill": 72,
     "dex": 79
+  },
+  {
+    "id": "2009-brothers-5",
+    "team": "brothers",
+    "year": "2009",
+    "name": "朱鴻森",
+    "type": "c-sa",
+    "side": "r-r",
+    "field": "2b",
+    "weather": "snow",
+    "ovr": 74,
+    "power": 68,
+    "contact": 75,
+    "base_speed": 82,
+    "defense_speed": 75,
+    "defense_range": 71,
+    "throw_power": 69,
+    "throw_skill": 69,
+    "dex": 73
   }
 ]
