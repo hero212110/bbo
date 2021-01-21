@@ -53,6 +53,16 @@ const getters = {
       })
     }
 
+    if (state.sort.val) {
+      tmp.sort(function (a, b) {
+        if (state.sort.decrease) {
+          return b[state.sort.val] - a[state.sort.val]
+        } else {
+          return a[state.sort.val] - b[state.sort.val]
+        }
+      })
+    }
+
     return tmp
   },
 }

@@ -5,6 +5,32 @@
         <v-row>
           <!-- 有資料 -->
           <template v-if="shownPlayerList.length > 0">
+            <!-- Filter Header -->
+            <v-col cols="12" lg="12" md="12" sm="12" class="filter-header">
+              <div>
+                <v-btn
+                  small
+                  fab
+                  color="success"
+                  class="white--text"
+                  @click="sortDecrease = !sortDecrease"
+                >
+                  <v-icon>{{
+                    sortDecrease
+                      ? 'fas fa-sort-amount-down'
+                      : 'fas fa-sort-amount-up'
+                  }}</v-icon>
+                </v-btn>
+                <v-select
+                  v-model="sortVal"
+                  :items="sortList"
+                  label="排序依據"
+                  dense
+                  solo
+                ></v-select>
+              </div>
+            </v-col>
+            <!-- Player Cards -->
             <v-col
               v-for="(item, i) in shownPlayerList"
               :key="i"
@@ -67,7 +93,7 @@
                 </div>
                 <div class="right">
                   <ul>
-                    <li v-for="status in statusList" :key="status">
+                    <li v-for="status in statusList" :key="status" :class="{'be-sorted' :status==player.sort.val}">
                       <span>{{ $getStatusText(status) }}</span>
                       <span :style="{ color: $getStatusColor(item[status]) }">
                         {{ item[status] }}
@@ -77,6 +103,7 @@
                 </div>
               </div>
             </v-col>
+            <!-- Pagination -->
             <v-col cols="12" sm="12">
               <div style="width: 100%; height: 50px">
                 <ul class="custom-pagnition">
@@ -158,6 +185,7 @@
 </template>
 <script>
 import { mapState, mapGetters } from 'vuex'
+import sortJSON from '@/static/data/common/sort.json'
 export default {
   data: () => ({
     statusList: [
@@ -173,6 +201,9 @@ export default {
     currPagination: 1,
     paginationLimit: 5,
     maxCard: 12,
+    sortVal: null,
+    sortDecrease: true,
+    sortList: sortJSON,
   }),
   computed: {
     ...mapState(['player']),
@@ -240,6 +271,12 @@ export default {
     'player.loading'(val) {
       this.currPagination = 1
     },
+    sortVal(val) {
+      this.$store.commit('player/SET_SORT_VAL', val)
+    },
+    sortDecrease(val) {
+      this.$store.commit('player/SET_SORT_DECREASE', val)
+    },
   },
   methods: {
     prev() {
@@ -262,6 +299,19 @@ export default {
   font-family: Overpass;
   min-height: 90vh;
   position: relative;
+  .filter-header {
+    display: flex;
+    justify-content: flex-end;
+    height: 50px;
+    > div {
+      display: flex;
+      align-items: flex-start;
+      line-height: 1;
+      > button {
+        margin-right: 10px;
+      }
+    }
+  }
   .player-block {
     display: flex;
     flex-wrap: wrap;
@@ -292,7 +342,7 @@ export default {
         border-radius: 4px;
         color: white;
         font-size: 1em;
-        border: 0.5px solid #6C6C6C;
+        border: 0.5px solid #6c6c6c;
         box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.7);
         @media screen and(max-width: 500px) {
           font-size: 0.6em;
@@ -416,10 +466,19 @@ export default {
         width: 100%;
         padding: 0 10%;
         > li {
+          position: relative;
           display: flex;
           justify-content: space-between;
+          align-items: center;
           width: 100%;
           margin-bottom: 2px;
+          &.be-sorted {
+            &::before {
+              content: '⚾';
+              position: absolute;
+              left: -10%;
+            }
+          }
           > span {
             text-align: center;
             &:first-child {

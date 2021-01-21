@@ -20,6 +20,12 @@ const mutations = {
   SET_EXTRA_MEMBER(state, val) {
     state.member.extra = val
   },
+  SET_SORT_VAL(state, val) {
+    state.sort.val = val
+  },
+  SET_SORT_DECREASE(state, val) {
+    state.sort.decrease = val
+  },
   JUSTIFY_PLUS(state, val) {
     if (val) {
       state.level = 10

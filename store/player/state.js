@@ -7,6 +7,10 @@ const state = () => ({
     year: 0,
     extra: null,
   },
+  sort: {
+    val: '',
+    decrease: true,
+  },
   loading: false,
 })
 
