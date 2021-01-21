@@ -57,7 +57,7 @@ export default ({ app, store }, inject) => {
         : params > 70
         ? 'orange'
         : 'blue'
-    return color
+    return `${color}-card`
   })
 
   inject('getWeatherIcon', (params) => {

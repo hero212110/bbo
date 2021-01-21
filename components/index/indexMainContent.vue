@@ -84,8 +84,8 @@
                     @click="currPagination = 1"
                     class="pc"
                     :class="{
-                      'custom-pagnition-li-disabled': currPagination == 1,
-                      'custom-hover-pagnition': currPagination != 1,
+                      _disabled: currPagination == 1,
+                      _hover: currPagination != 1,
                     }"
                   >
                     <v-icon>fa-angle-double-left</v-icon>
@@ -93,8 +93,8 @@
                   <li
                     @click="prev"
                     :class="{
-                      'custom-pagnition-li-disabled': currPagination == 1,
-                      'custom-hover-pagnition': currPagination != 1,
+                      _disabled: currPagination == 1,
+                      _hover: currPagination != 1,
                     }"
                   >
                     <v-icon>fas fa-angle-left</v-icon>
@@ -104,8 +104,8 @@
                     :key="index"
                     @click="currPagination = item"
                     :class="{
-                      'custom-pagnition-li-active': item == currPagination,
-                      'custom-hover-pagnition': item != currPagination,
+                      _active: item == currPagination,
+                      _hover: item != currPagination,
                     }"
                   >
                     <span>{{ item }}</span>
@@ -113,10 +113,8 @@
                   <li
                     @click="next"
                     :class="{
-                      'custom-pagnition-li-disabled':
-                        currPagination == pagnitionList.length,
-                      'custom-hover-pagnition':
-                        currPagination != pagnitionList.length,
+                      _disabled: currPagination == pagnitionList.length,
+                      _hover: currPagination != pagnitionList.length,
                     }"
                   >
                     <v-icon>fas fa-angle-right</v-icon>
@@ -125,10 +123,8 @@
                     @click="currPagination = pagnitionList.length"
                     class="pc"
                     :class="{
-                      'custom-pagnition-li-disabled':
-                        currPagination == pagnitionList.length,
-                      'custom-hover-pagnition':
-                        currPagination != pagnitionList.length,
+                      _disabled: currPagination == pagnitionList.length,
+                      _hover: currPagination != pagnitionList.length,
                     }"
                   >
                     <v-icon>fas fa-angle-double-right</v-icon>
@@ -183,6 +179,10 @@ export default {
     ...mapGetters('player', {
       upgradedPlayerList: 'GetUpgradedPlayerList',
     }),
+    isMobile() {
+      let tmp = document.body.clientWidth < 500 ? true : false
+      return tmp
+    },
     shownPlayerList() {
       let tmp =
         this.upgradedPlayerList.length > 0 ? this.upgradedPlayerList : []
@@ -250,6 +250,9 @@ export default {
         this.currPagination += 1
     },
   },
+  mounted() {
+    this.isMobile && (this.maxCard = 5)
+  },
 }
 </script>
 <style lang="scss" scoped>
@@ -289,19 +292,21 @@ export default {
         border-radius: 4px;
         color: white;
         font-size: 1em;
+        border: 0.5px solid #6C6C6C;
+        box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.7);
         @media screen and(max-width: 500px) {
           font-size: 0.6em;
         }
-        &.purple {
+        &.purple-card {
           @include purple-bg;
         }
-        &.red {
+        &.red-card {
           @include red-bg;
         }
-        &.orange {
+        &.orange-card {
           @include orange-bg;
         }
-        &.blue {
+        &.blue-card {
           @include blue-bg;
         }
         .avatar-pic {
@@ -389,6 +394,7 @@ export default {
         }
       }
       .avatar-info {
+        padding-top: 10px;
         > span {
           font-size: 0.5em;
           display: block;
@@ -469,20 +475,16 @@ export default {
         }
       }
       @media screen and(min-width: 500px) {
-        &.custom-hover-pagnition:hover {
+        &._hover:hover {
           background: linear-gradient(45deg, white, #ffd306, #eac100);
           color: white;
         }
       }
-      &.custom-pagnition-li-default {
-        background-image: none;
-        color: black;
-      }
-      &.custom-pagnition-li-active {
+      &._active {
         background: linear-gradient(45deg, white, #ffd306, #eac100);
         color: white;
       }
-      &.custom-pagnition-li-disabled {
+      &._disabled {
         background: none;
         color: rgba(160, 156, 156, 0.667);
         cursor: not-allowed;
