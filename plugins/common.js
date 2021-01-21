@@ -60,6 +60,17 @@ export default ({ app, store }, inject) => {
     return `${color}-card`
   })
 
+  inject('id2ovr2color', (params) => {
+    let tmp = JSON.parse(JSON.stringify(store.state.player.playerList))
+    let player = tmp.find((item) => {
+      return item.id == params
+    })
+    let { ovr } = player
+    let color =
+      ovr > 80 ? 'purple' : ovr > 75 ? 'red' : ovr > 70 ? 'orange' : 'blue'
+    return `${color}-card`
+  })
+
   inject('getWeatherIcon', (params) => {
     let icon = 'cloud'
     icon =

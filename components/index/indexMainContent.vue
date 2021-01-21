@@ -45,15 +45,7 @@
                   <span>{{ $getIdText(item.field) }} {{ item.ovr }} </span>
                 </div>
                 <div class="left">
-                  <div
-                    class="avatar-container"
-                    :class="
-                      $getCardColor(
-                        player.playerList[i + (currPagination - 1) * maxCard]
-                          .ovr
-                      )
-                    "
-                  >
+                  <div class="avatar-container" :class="$id2ovr2color(item.id)">
                     <div class="avatar-pic">
                       <img
                         :src="
@@ -93,7 +85,11 @@
                 </div>
                 <div class="right">
                   <ul>
-                    <li v-for="status in statusList" :key="status" :class="{'be-sorted' :status==player.sort.val}">
+                    <li
+                      v-for="status in statusList"
+                      :key="status"
+                      :class="{ 'be-sorted': status == player.sort.val }"
+                    >
                       <span>{{ $getStatusText(status) }}</span>
                       <span :style="{ color: $getStatusColor(item[status]) }">
                         {{ item[status] }}

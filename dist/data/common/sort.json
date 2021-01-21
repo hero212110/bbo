@@ -1,4 +1,5 @@
 [
+  { "text": "預設", "value": null },
   { "text": "力量", "value": "power" },
   { "text": "打擊", "value": "contact" },
   { "text": "跑壘速度", "value": "base_speed" },
