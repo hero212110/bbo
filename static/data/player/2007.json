@@ -74,5 +74,24 @@
     "throw_power": 75,
     "throw_skill": 73,
     "dex": 69
+  },
+  {
+    "id": "2007-lions-1",
+    "team": "lions",
+    "year": "2007",
+    "name": "陽東益",
+    "type": "p-sa",
+    "side": "r-r",
+    "field": "ss",
+    "weather": "cloud",
+    "ovr": 73,
+    "power": 70,
+    "contact": 70,
+    "base_speed": 83,
+    "defense_speed": 81,
+    "defense_range": 75,
+    "throw_power": 70,
+    "throw_skill": 70,
+    "dex": 76
   }
 ]

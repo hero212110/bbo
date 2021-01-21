@@ -1,11 +1,6 @@
 import statusList from '@/static/data/common/status.json'
 import idList from '@/static/data/common/id.json'
-
-import player2011 from '@/static/data/player/2011.json'
 export default ({ app, store }, inject) => {
-  inject('getPlayerList', (params) => {
-    return player2011.brothers
-  })
 
   inject('getStatusText', (params) => {
     return statusList[params] || ''
