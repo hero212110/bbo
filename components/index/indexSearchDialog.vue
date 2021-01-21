@@ -197,30 +197,28 @@ export default {
   methods: {
     setSearchModal() {
       this.$emit('setSearchModal', false)
-      this.resetField()
+      this.save || this.resetField()
     },
     doSearch() {
       this.$store.commit('player/SET_LOADING', true)
       this.$store.commit('player/CLEAR_PLAYER_LIST')
       this.$store.dispatch('player/fetchPlayerList', this.form)
-      this.resetField()
+      this.save || this.resetField()
       this.$emit('setSearchModal', false)
     },
     resetField() {
-      if (!this.save) {
-        this.currTab = JSON.parse(JSON.stringify({ id: 'name', text: '名稱' }))
-        this.form.name = ''
-        this.form.team = ['all']
-        this.form.field = ['all']
-        this.form.ovr = []
-        this.form.ovr.push(this.database.ovr[0])
-        this.form.ovr.push(this.database.ovr[1])
-        this.form.year = []
-        this.form.year.push(this.database.year[0])
-        this.form.year.push(this.database.year[1])
-        this.form.weather = ['all']
-        this.form.type = ['all']
-      }
+      this.currTab = JSON.parse(JSON.stringify({ id: 'name', text: '名稱' }))
+      this.form.name = ''
+      this.form.team = ['all']
+      this.form.field = ['all']
+      this.form.ovr = []
+      this.form.ovr.push(this.database.ovr[0])
+      this.form.ovr.push(this.database.ovr[1])
+      this.form.year = []
+      this.form.year.push(this.database.year[0])
+      this.form.year.push(this.database.year[1])
+      this.form.weather = ['all']
+      this.form.type = ['all']
     },
     changeList(item) {
       let currId = this.currTab.id
@@ -252,7 +250,7 @@ export default {
     },
   },
   mounted() {
-    this.resetField()
+    this.save || this.resetField()
   },
 }
 </script>
