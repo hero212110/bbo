@@ -21,7 +21,7 @@
 
 @mixin copper() {
   color: white;
-  text-shadow: 0 0 3px black;
+  text-shadow: 0 0 5px black;
   background: linear-gradient(
     45deg,
     #ca7345,
@@ -41,7 +41,7 @@
 
 @mixin silver() {
   color: white;
-  text-shadow: 0 0 3px black;
+  text-shadow: 0 0 5px black;
   background: linear-gradient(
     45deg,
     #dedede,
@@ -60,7 +60,7 @@
 
 @mixin gold() {
   color: white;
-  text-shadow: 0 0 3px black;
+  text-shadow: 0 0 5px black;
   background: linear-gradient(
     45deg,
     #bf953f,
@@ -73,7 +73,7 @@
 
 @mixin rainbow() {
   color: white;
-  text-shadow: 0 0 3px black;
+  text-shadow: 0 0 5px black;
   background: linear-gradient(0deg, #ffd306, #98c9d6, #8600ff);
 }
 @mixin purple-bg {

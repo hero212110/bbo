@@ -21,7 +21,6 @@
                 <div class="left">
                   <div
                     class="avatar-container"
-                    :style="{ 'font-size': isMobile ? '0.6em' : '1em' }"
                     :class="
                       $getCardColor(
                         player.playerList[i + (currPagination - 1) * maxCard]
@@ -80,7 +79,7 @@
             </v-col>
             <v-col cols="12" sm="12">
               <div style="width: 100%; height: 50px">
-                <ul class="custom-pagnition" :class="{ mobile: isMobile }">
+                <ul class="custom-pagnition">
                   <li
                     @click="currPagination = 1"
                     :class="{
@@ -183,10 +182,6 @@ export default {
     ...mapGetters('player', {
       upgradedPlayerList: 'GetUpgradedPlayerList',
     }),
-    isMobile() {
-      let tmp = document.body.clientWidth < 500 ? true : false
-      return tmp
-    },
     shownPlayerList() {
       let tmp =
         this.upgradedPlayerList.length > 0 ? this.upgradedPlayerList : []
@@ -254,9 +249,6 @@ export default {
         this.currPagination += 1
     },
   },
-  mounted() {
-    this.isMobile && (this.maxCard = 5)
-  },
 }
 </script>
 <style lang="scss" scoped>
@@ -283,8 +275,12 @@ export default {
     .left {
       display: flex;
       flex-wrap: wrap;
-      width: 35%;
-      padding: 0 10px 10px 10px;
+      width: 40%;
+      padding: 0 10% 10px 10px;
+      @media screen and(max-width: 500px) {
+        width: 35%;
+        padding: 0 0 10px 10px;
+      }
       .avatar-container {
         width: 100%;
         min-height: 170px;
@@ -292,6 +288,9 @@ export default {
         border-radius: 4px;
         color: white;
         font-size: 1em;
+        @media screen and(max-width: 500px) {
+          font-size: 0.6em;
+        }
         &.purple {
           @include purple-bg;
         }
@@ -304,7 +303,6 @@ export default {
         &.blue {
           @include blue-bg;
         }
-
         .avatar-pic {
           width: 100%;
           height: 80%;
@@ -320,7 +318,7 @@ export default {
             position: absolute;
             top: 0;
             right: 2%;
-            text-shadow: 0 0 3px black;
+            text-shadow: 0 0 5px black;
           }
           .avatar-weather {
             position: absolute;
@@ -347,7 +345,7 @@ export default {
             position: absolute;
             bottom: 2%;
             right: 2%;
-            text-shadow: 0 0 3px black;
+            text-shadow: 0 0 5px black;
           }
           > span:last-child {
             position: absolute;
@@ -383,6 +381,9 @@ export default {
           align-items: center;
           > span {
             font-size: 100%;
+            @media screen and(max-width: 500px) {
+              font-size: 150%;
+            }
           }
         }
       }
@@ -397,9 +398,12 @@ export default {
     .right {
       display: flex;
       flex-wrap: wrap;
-      width: 65%;
+      width: 60%;
       font-size: 0.5em;
       font-weight: 800;
+      @media screen and(max-width: 500px) {
+        width: 65%;
+      }
       > ul {
         list-style: none;
         width: 100%;
@@ -437,12 +441,7 @@ export default {
     bottom: 1vh;
     left: 50%;
     transform: translateX(-50%);
-    &.mobile {
-      position: relative;
-      > li {
-        padding: 2px 2vw 2px 2vw;
-      }
-    }
+
     > li {
       float: left;
       height: 38px;
@@ -457,6 +456,9 @@ export default {
       cursor: pointer;
       display: flex;
       justify-content: center;
+      @media screen and(max-width: 500px) {
+        padding: 2px 2vw 2px 2vw;
+      }
       > span {
         font-size: 20px;
         height: 38px;

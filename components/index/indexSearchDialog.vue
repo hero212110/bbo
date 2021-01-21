@@ -106,7 +106,7 @@
                       :src="
                         require(`../../static/images/common/${item.img}.png`)
                       "
-                      style="max-width:11%"
+                      style="max-width: 11%"
                       alt=""
                     />
                   </template>
@@ -123,8 +123,8 @@
 
       <v-card-actions style="margin-top: 50px">
         <v-switch style="padding-left: 3%" v-model="save" inset></v-switch>
-        <v-icon v-if="isMobile" color="success">fas fa-save</v-icon>
-        <span v-if="!isMobile" class="save-txt">保存紀錄</span>
+        <v-icon color="success" class="save-icon">fas fa-save</v-icon>
+        <span class="save-txt">保存紀錄</span>
         <v-spacer></v-spacer>
         <v-btn color="warning" class="ma-2 white--text" @click="resetField">
           <v-icon left>fas fa-sync-alt</v-icon>
@@ -192,10 +192,6 @@ export default {
     isNotSelection() {
       let arr = ['name', 'ovr', 'year']
       return arr.includes(this.currTab.id)
-    },
-    isMobile() {
-      let tmp = document.body.clientWidth < 500 ? true : false
-      return tmp
     },
   },
   methods: {
@@ -324,9 +320,19 @@ export default {
       }
     }
   }
+  .save-icon {
+    display: none;
+    @media screen and(max-width: 500px) {
+      display: inline-block;
+    }
+  }
   .save-txt {
     pointer-events: none;
     font-weight: 600;
+    display: inline-block;
+    @media screen and(max-width: 500px) {
+      display: none;
+    }
   }
 }
 </style>
