@@ -82,12 +82,12 @@
                 <ul class="custom-pagnition">
                   <li
                     @click="currPagination = 1"
+                    class="pc"
                     :class="{
                       'custom-pagnition-li-disabled': currPagination == 1,
                       'custom-hover-pagnition': currPagination != 1,
                     }"
                   >
-                    <!-- <span>First</span> -->
                     <v-icon>fa-angle-double-left</v-icon>
                   </li>
                   <li
@@ -123,6 +123,7 @@
                   </li>
                   <li
                     @click="currPagination = pagnitionList.length"
+                    class="pc"
                     :class="{
                       'custom-pagnition-li-disabled':
                         currPagination == pagnitionList.length,
@@ -436,7 +437,7 @@ export default {
     color: white;
     display: flex;
     justify-content: center;
-    padding: 0 10%;
+    padding: 0 20%;
     position: absolute;
     bottom: 1vh;
     left: 50%;
@@ -456,16 +457,22 @@ export default {
       cursor: pointer;
       display: flex;
       justify-content: center;
-      @media screen and(max-width: 500px) {
-        padding: 2px 2vw 2px 2vw;
-      }
       > span {
         font-size: 20px;
         height: 38px;
       }
-      &.custom-hover-pagnition:hover {
-        background: linear-gradient(45deg, white, #ffd306, #eac100);
-        color: white;
+
+      @media screen and(max-width: 500px) {
+        padding: 2px 2.5vw 2px 2.5vw;
+        &.pc {
+          display: none;
+        }
+      }
+      @media screen and(min-width: 500px) {
+        &.custom-hover-pagnition:hover {
+          background: linear-gradient(45deg, white, #ffd306, #eac100);
+          color: white;
+        }
       }
       &.custom-pagnition-li-default {
         background-image: none;
