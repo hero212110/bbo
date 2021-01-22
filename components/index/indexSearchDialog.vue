@@ -314,6 +314,7 @@ export default {
         padding: 10px 20px;
         display: flex;
         justify-content: space-between;
+        align-items: center;
         cursor: pointer;
         > img {
           max-width: 11%;

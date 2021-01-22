@@ -1,4 +1,22 @@
 const mutations = {
+  INITIAL_STATE(state, val) {
+    const default_state = {
+      form: {},
+      playerList: [],
+      level: 0,
+      member: {
+        as: 0,
+        year: 0,
+        extra: null,
+      },
+      sort: {
+        val: '',
+        decrease: true,
+      },
+      loading: false,
+    }
+    state = JSON.parse(JSON.stringify(default_state))
+  },
   SET_LOADING(state, val) {
     state.loading = val
   },

@@ -12,6 +12,9 @@ import layoutHeader from '@/components/layout/layoutHeader'
 export default {
   name: 'default',
   data: () => ({}),
+  beforeMount() {
+    this.$store.commit('player/INITIAL_STATE')
+  },
 }
 </script>
 <style lang="scss" scoped>

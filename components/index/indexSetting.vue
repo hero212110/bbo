@@ -27,7 +27,7 @@
           </v-btn>
         </li>
         <li style="width: 40%">
-          <div style="white-space : nowrap">
+          <div style="white-space: nowrap">
             <span>當前等級 : {{ player.level }}</span>
           </div>
         </li>
@@ -92,7 +92,7 @@ export default {
     asVal: 0,
     yearVal: 0,
     extraVal: null,
-    asList: [0, 28],
+    asList: [0, 24, 28],
     yearList: [0, 15, 20, 24, 28],
     extraList: [
       { text: '無加成', value: null },
