@@ -36,7 +36,10 @@
             cols="12"
             sm="8"
             class="main"
-            :class="{ filtered: !isNotSelection }"
+            :class="{
+              filtered: !isNotSelection,
+              scrolled: currTab.id == 'field' || currTab.id == 'type',
+            }"
           >
             <p v-if="isNotSelection" class="content-title">
               {{ currTab.text }}
@@ -106,7 +109,6 @@
                       :src="
                         require(`../../static/images/common/${item.img}.png`)
                       "
-                      style="max-width: 11%"
                       alt=""
                     />
                   </template>
@@ -280,6 +282,10 @@ export default {
   }
   .main {
     background: linear-gradient(45deg, #cfd4d8, #b4bbc5);
+    &.scrolled {
+      max-height: 354px;
+      overflow-y: scroll;
+    }
     &.filtered {
       padding: 0;
     }
@@ -309,6 +315,10 @@ export default {
         display: flex;
         justify-content: space-between;
         cursor: pointer;
+        > img {
+          max-width: 11%;
+          max-height: 38px;
+        }
         &.active {
           background: white;
           > div .check-circle {

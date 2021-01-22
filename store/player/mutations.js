@@ -26,6 +26,13 @@ const mutations = {
   SET_SORT_DECREASE(state, val) {
     state.sort.decrease = val
   },
+  REMOVE_PLAYER(state, val) {
+    let tmp = JSON.parse(JSON.stringify(state.playerList))
+    tmp = tmp.filter((item) => {
+      return item.id != val
+    })
+    state.playerList = JSON.parse(JSON.stringify(tmp))
+  },
   JUSTIFY_PLUS(state, val) {
     if (val) {
       state.level = 10

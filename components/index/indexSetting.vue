@@ -27,7 +27,7 @@
           </v-btn>
         </li>
         <li style="width: 40%">
-          <div>
+          <div style="white-space : nowrap">
             <span>當前等級 : {{ player.level }}</span>
           </div>
         </li>

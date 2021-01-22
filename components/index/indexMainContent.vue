@@ -41,8 +41,16 @@
             >
               <div class="player-block">
                 <div class="header">
-                  <span>{{ item.year }} {{ item.name }}</span>
-                  <span>{{ $getIdText(item.field) }} {{ item.ovr }} </span>
+                  <div>
+                    <!-- <v-icon color="yellow">fas fa-star</v-icon> -->
+                    <span>{{ item.year }} {{ item.name }}</span>
+                  </div>
+                  <div>
+                    <span>{{ $getIdText(item.field) }} {{ item.ovr }} </span>
+                    <v-btn icon @click="removePlayer(item.id)">
+                      <v-icon color="error">fas fa-times-circle</v-icon>
+                    </v-btn>
+                  </div>
                 </div>
                 <div class="left">
                   <div class="avatar-container" :class="$id2ovr2color(item.id)">
@@ -282,6 +290,9 @@ export default {
       if (this.currPagination < this.pagnitionList.length)
         this.currPagination += 1
     },
+    removePlayer(val) {
+      this.$store.commit('player/REMOVE_PLAYER', val)
+    },
   },
   mounted() {
     this.isMobile && (this.maxCard = 5)
@@ -317,10 +328,16 @@ export default {
     .header {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       width: 100%;
-      padding: 10px 7% 10px 10px;
+      padding: 10px 10px 10px 10px;
       border-bottom: 1.5px solid #bebebe;
       margin-bottom: 10px;
+      > div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
     }
     .left {
       display: flex;
