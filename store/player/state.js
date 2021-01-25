@@ -1,6 +1,7 @@
 const state = () => ({
   form: {},
   playerList: [],
+  starPlayerList: [],
   level: 0,
   member: {
     as: 0,

@@ -13,7 +13,10 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/logo.ico' }],
   },
   css: ['@fortawesome/fontawesome-free/css/all.css'],
-  plugins: [{ src: '~/plugins/common.js' }],
+  plugins: [
+    { src: '~/plugins/common.js' },
+    { src: '~/plugins/localStorage.js', ssr: false },
+  ],
   components: true,
   buildModules: ['@nuxtjs/vuetify', '@nuxtjs/style-resources'],
   styleResources: {

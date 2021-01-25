@@ -42,7 +42,16 @@
               <div class="player-block">
                 <div class="header">
                   <div>
-                    <!-- <v-icon color="yellow">fas fa-star</v-icon> -->
+                    <v-btn
+                      icon
+                      @click="starPlayer(item)"
+                    >
+                      <v-icon
+                        :color="$isStarPlayer(item.id) ? 'yellow' : 'grey'"
+                        >fas fa-star</v-icon
+                      >
+                    </v-btn>
+
                     <span>{{ item.year }} {{ item.name }}</span>
                   </div>
                   <div>
@@ -292,6 +301,9 @@ export default {
     },
     removePlayer(val) {
       this.$store.commit('player/REMOVE_PLAYER', val)
+    },
+    starPlayer(val) {
+      this.$store.commit('player/STAR_PLAYER', val)
     },
   },
   mounted() {

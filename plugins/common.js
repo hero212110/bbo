@@ -1,7 +1,6 @@
 import statusList from '@/static/data/common/status.json'
 import idList from '@/static/data/common/id.json'
 export default ({ app, store }, inject) => {
-
   inject('getStatusText', (params) => {
     return statusList[params] || ''
   })
@@ -80,5 +79,20 @@ export default ({ app, store }, inject) => {
         : 'circle'
 
     return icon
+  })
+
+
+  inject('isStarPlayer', (params) => {
+    let tmp = JSON.parse(JSON.stringify(store.state.player.starPlayerList))
+    if (tmp.length == 0) {
+      return false
+    } else {
+      let arr = []
+      tmp.forEach((item) => {
+        arr.push(item.id)
+      })
+
+      return arr.includes(params) ? true : false
+    }
   })
 }

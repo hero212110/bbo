@@ -1,5 +1,5 @@
 const mutations = {
-  INITIAL_STATE(state, val) {
+  INITIAL_STATE(state) {
     const default_state = {
       form: {},
       playerList: [],
@@ -50,6 +50,29 @@ const mutations = {
       return item.id != val
     })
     state.playerList = JSON.parse(JSON.stringify(tmp))
+  },
+  STAR_PLAYER(state, val) {
+    let tmp = JSON.parse(JSON.stringify(state.starPlayerList))
+    let arr = []
+    tmp.forEach((item) => {
+      arr.push(item.id)
+    })
+
+    if (arr.includes(val.id)) {
+      let removed = tmp.filter((item) => {
+        return item.id != val.id
+      })
+      state.starPlayerList = JSON.parse(JSON.stringify(removed))
+    } else {
+      let origin = JSON.parse(JSON.stringify(state.playerList))
+      let player = origin.find((item) => {
+        return item.id == val.id
+      })
+      state.starPlayerList.push(player)
+    }
+  },
+  CLEAR_STAR_PLAYER(state) {
+    state.starPlayerList = []
   },
   JUSTIFY_PLUS(state, val) {
     if (val) {

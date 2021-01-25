@@ -2,6 +2,12 @@
   <v-col cols="12" sm="2">
     <v-sheet min-height="40vh" rounded="lg">
       <ul class="setting-list">
+        <li style="width: 100%">
+          <v-btn color="success" class="ma-2 white--text" @click="clearStar">
+            <v-icon left>fas fa-star</v-icon>
+            <span>清空我的最愛</span>
+          </v-btn>
+        </li>
         <li>
           <v-btn color="blue" class="ma-2 white--text" @click="setSearchModal">
             <v-icon left>fas fa-search</v-icon>
@@ -26,6 +32,7 @@
             <span>清除加成</span>
           </v-btn>
         </li>
+
         <li style="width: 40%">
           <div style="white-space: nowrap">
             <span>當前等級 : {{ player.level }}</span>
@@ -104,14 +111,23 @@ export default {
     ...mapState(['player']),
   },
   watch: {
-    asVal(val) {
-      this.$store.commit('player/SET_AS_MEMBER', val)
+    asVal: {
+      handler(val) {
+        this.$store.commit('player/SET_AS_MEMBER', val)
+      },
+      immediate: true,
     },
-    yearVal(val) {
-      this.$store.commit('player/SET_YEAR_MEMBER', val)
+    yearVal: {
+      handler(val) {
+        this.$store.commit('player/SET_YEAR_MEMBER', val)
+      },
+      immediate: true,
     },
-    extraVal(val) {
-      this.$store.commit('player/SET_EXTRA_MEMBER', val)
+    extraVal: {
+      handler(val) {
+        this.$store.commit('player/SET_EXTRA_MEMBER', val)
+      },
+      immediate: true,
     },
     'player.member': {
       handler(val) {
@@ -120,6 +136,7 @@ export default {
         this.extraVal = val.extra
       },
       deep: true,
+      immediate: true,
     },
   },
   methods: {
@@ -141,6 +158,9 @@ export default {
     },
     justifyPlus(val) {
       this.$store.commit('player/JUSTIFY_PLUS', val)
+    },
+    clearStar() {
+      this.$store.commit('player/CLEAR_STAR_PLAYER')
     },
   },
 }
