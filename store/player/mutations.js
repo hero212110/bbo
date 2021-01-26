@@ -96,6 +96,12 @@ const mutations = {
   SET_SWAP_MODE(state, val) {
     state.swapMode = val
   },
+  SWAP_PLAYER(state, { p1, p2 }) {
+    let player1 = JSON.parse(JSON.stringify(state.startingPlayerList[p1]))
+    let player2 = JSON.parse(JSON.stringify(state.startingPlayerList[p2]))
+    state.startingPlayerList.splice(p1, 1, player2)
+    state.startingPlayerList.splice(p2, 1, player1)
+  },
 }
 
 export default mutations

@@ -96,7 +96,6 @@
         </v-sheet>
       </v-col>
     </v-row>
-    
   </v-container>
 </template>
 <script>
@@ -127,12 +126,21 @@ export default {
   watch: {},
   methods: {
     selectCard(val) {
-      //
       if (val != this.currCard) {
-        this.currCard = val
-      } 
-      //
-      else {
+        //if swap => swapPlayer
+        if (this.player.swapMode && this.currCard != null) {
+          // console.log(this.currCard, val)
+          this.$store.commit('player/SWAP_PLAYER', {
+            p1: this.currCard,
+            p2: val,
+          })
+          this.currCard = null
+        }
+        //else 改變currCard
+        else {
+          this.currCard = val
+        }
+      } else {
         this.currCard = null
       }
     },
