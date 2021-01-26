@@ -4,14 +4,16 @@
     <v-main class="grey lighten-3">
       <nuxt />
     </v-main>
+    <team-speed-dial></team-speed-dial>
   </v-app>
 </template>
 
 <script>
 import layoutHeader from '@/components/layout/layoutHeader'
+import teamSpeedDial from '@/components/team/teamSpeedDial'
 export default {
   name: 'default',
-  components: { layoutHeader },
+  components: { layoutHeader, teamSpeedDial },
   data: () => ({}),
   mounted() {
     // this.$store.commit('player/INITIAL_STATE')

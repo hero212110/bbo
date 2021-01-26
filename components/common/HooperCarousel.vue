@@ -3,9 +3,9 @@
     :itemsToShow="shownPlayerCards"
     :autoPlay="false"
     :playSpeed="4500"
-    :infiniteScroll="true"
+    :infiniteScroll="false"
     :wheelControl="true"
-    :mouseDrag="false"
+    :mouseDrag="true"
     class="bottom-carousel"
   >
     <slide v-for="item in player.starPlayerList" :key="item.id">
@@ -87,7 +87,10 @@ export default {
     ...mapState(['player']),
     shownPlayerCards() {
       let tmp = document.body.clientWidth
-      return tmp > 1600 ? 10 : tmp > 1200 ? 6 : tmp > 800 ? 4 : 3
+      console.log(tmp)
+      let w = tmp > 1600 ? 10 : tmp > 1200 ? 6 : tmp > 800 ? 4 : 3
+      let l = this.player.starPlayerList.length + 1
+      return l > w ? l : w
     },
   },
   methods: {

@@ -74,6 +74,12 @@ const mutations = {
   CLEAR_STAR_PLAYER(state) {
     state.starPlayerList = []
   },
+  ADD_STARTING_PLAYER(state, { index, data }) {
+    state.startingPlayerList.splice(index, 1, data)
+  },
+  REMOVE_STARTING_PLAYER(state, { index }) {
+    state.startingPlayerList.splice(index, 1, null)
+  },
   JUSTIFY_PLUS(state, val) {
     if (val) {
       state.level = 10
@@ -86,6 +92,9 @@ const mutations = {
       state.member.year = 0
       state.member.extra = null
     }
+  },
+  SET_SWAP_MODE(state, val) {
+    state.swapMode = val
   },
 }
 

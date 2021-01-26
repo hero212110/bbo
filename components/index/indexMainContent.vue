@@ -42,10 +42,7 @@
               <div class="player-block">
                 <div class="header">
                   <div>
-                    <v-btn
-                      icon
-                      @click="starPlayer(item)"
-                    >
+                    <v-btn icon @click="starPlayer(item)">
                       <v-icon
                         :color="$isStarPlayer(item.id) ? 'yellow' : 'grey'"
                         >fas fa-star</v-icon
@@ -62,7 +59,10 @@
                   </div>
                 </div>
                 <div class="left">
-                  <div class="avatar-container" :class="$id2ovr2color(item.id)">
+                  <div class="avatar-card">
+                    <player-card v-if="item" :playerData="item"></player-card>
+                  </div>
+                  <!-- <div class="avatar-container" :class="$id2ovr2color(item.id)">
                     <div class="avatar-pic">
                       <img
                         :src="
@@ -92,7 +92,7 @@
                         {{ `${item.year.substr(2, 2)}${item.name}` }}
                       </span>
                     </div>
-                  </div>
+                  </div> -->
 
                   <div class="avatar-info">
                     <span>{{ $getIdText(item.team) }}</span>
@@ -199,7 +199,9 @@
 <script>
 import { mapState, mapGetters } from 'vuex'
 import sortJSON from '@/static/data/common/sort.json'
+import playerCard from '@/components/common/playerCard'
 export default {
+  components: { playerCard },
   data: () => ({
     statusList: [
       'power',
@@ -360,113 +362,9 @@ export default {
         width: 35%;
         padding: 0 0 10px 10px;
       }
-      .avatar-container {
+      .avatar-card{
         width: 100%;
-        min-height: 170px;
-        position: relative;
-        border-radius: 4px;
-        color: white;
-        font-size: 1em;
-        border: 0.5px solid #6c6c6c;
-        box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.7);
-        @media screen and(max-width: 500px) {
-          font-size: 0.6em;
-        }
-        &.purple-card {
-          @include purple-bg;
-        }
-        &.red-card {
-          @include red-bg;
-        }
-        &.orange-card {
-          @include orange-bg;
-        }
-        &.blue-card {
-          @include blue-bg;
-        }
-        .avatar-pic {
-          width: 100%;
-          height: 80%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          position: relative;
-          > img {
-            width: 80%;
-            min-height: 100%;
-          }
-          .avatar-ovr {
-            position: absolute;
-            top: 0;
-            right: 2%;
-            text-shadow: 0 0 5px black;
-          }
-          .avatar-weather {
-            position: absolute;
-            top: 16%;
-            right: 2%;
-            transform: translateX(4%);
-            &.sun {
-              color: red;
-            }
-            &.cloud {
-              color: #f0f0f0;
-            }
-            &.snow {
-              color: #66b3ff;
-            }
-            &.rain {
-              color: #0080ff;
-            }
-            &.none {
-              color: green;
-            }
-          }
-          .avatar-field {
-            position: absolute;
-            bottom: 2%;
-            right: 2%;
-            text-shadow: 0 0 5px black;
-          }
-          > span:last-child {
-            position: absolute;
-            left: 2%;
-            bottom: 2%;
-            font-weight: 700;
-            font-size: 1em;
-            padding: 2px 6px;
-            border: 0.5px solid #3c3c3c;
-            border-radius: 4px;
-            &.none {
-              display: none;
-            }
-            &.copper {
-              @include copper;
-            }
-            &.silver {
-              @include silver;
-            }
-            &.gold {
-              @include gold;
-            }
-            &.rainbow {
-              @include rainbow;
-            }
-          }
-        }
-        .avatar-name {
-          width: 100%;
-          height: 20%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          > span {
-            font-size: 100%;
-            @media screen and(max-width: 500px) {
-              font-size: 150%;
-            }
-          }
-        }
+        height: 170px;
       }
       .avatar-info {
         padding-top: 10px;

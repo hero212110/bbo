@@ -5,218 +5,299 @@
         <v-sheet min-height="65vh" rounded="lg" droppable class="pa-2">
           <div class="player-wrapper">
             <ul>
-              <li v-for="i in 9" :key="i">
+              <li
+                v-for="(item, index) in player.startingPlayerList"
+                :key="index"
+              >
                 <div class="player-container">
-                  {{ i }}
+                  <div class="order">
+                    <span>{{ index + 1 }}</span>
+                    <span v-if="item != null">
+                      {{
+                        `${
+                          item.field ? item.field.toUpperCase() : ''
+                        } ${$getIdText(item.side)}`
+                      }}
+                    </span>
+                    <span v-else> 無 </span>
+                  </div>
+                  <div
+                    class="card"
+                    :class="{ active: index == currCard }"
+                    @click="selectCard(index)"
+                  >
+                    <v-icon
+                      v-if="index == currCard && item != null"
+                      small
+                      color="error"
+                      class="close-player"
+                      @click="removeStartingPlayer"
+                    >
+                      fas fa-times-circle
+                    </v-icon>
+
+                    <v-icon
+                      v-if="index == currCard"
+                      color="yellow"
+                      class="add-player"
+                      >fas fa-baseball-ball</v-icon
+                    >
+
+                    <player-card v-if="item" :playerData="item"></player-card>
+                  </div>
+                  <div class="status">
+                    <ul>
+                      <li
+                        v-for="status in statusList"
+                        :key="status"
+                        :data-content="item ? item[status] : ''"
+                      >
+                        <div
+                          :style="{
+                            width: `${item ? item[status] / 1.2 : 0}%`,
+                            background: `${
+                              item ? $getStatusColor(item[status]) : ''
+                            }`,
+                          }"
+                        ></div>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="plus">
+                    <ul>
+                      <li v-for="i in 3" :key="i">
+                        <div></div>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </li>
             </ul>
           </div>
-        
         </v-sheet>
       </v-col>
 
       <v-col cols="12">
-        <v-sheet
-          min-height="20vh"
-          rounded="lg"
-           class="avatar-wrapper"
-        >
+        <v-sheet min-height="20vh" rounded="lg" class="bench-wrapper">
           <!-- <hooper-carousel></hooper-carousel> -->
-          <!--  -->
-            <template v-if="player.starPlayerList.length > 0">
-              <div
-                v-for="item in player.starPlayerList"
-                :key="item.id"
-                class="avatar-container ma-2"
-                :class="$getCardColor(item.ovr)"
-                draggable="true"
-              >
-                <div class="avatar-pic">
-                  <img
-                    :src="require(`../static/images/player/${item.team}.png`)"
-                    alt=""
-                  />
-                  <span class="avatar-ovr">{{ item.ovr }}</span>
-
-                  <v-icon small class="avatar-weather" :class="item.weather">
-                    fas fa-{{ $getWeatherIcon(item.weather) }}
-                  </v-icon>
-                  <span class="avatar-field">
-                    {{ item.field.toUpperCase() }}
-                  </span>
-                  <span :class="$getLevelColor(item.level)">
-                    +{{ item.level }}
-                  </span>
-                </div>
-
-                <div class="avatar-name">
-                  <span>
-                    {{ `${item.year.substr(2, 2)}${item.name}` }}
-                  </span>
-                </div>
-              </div>
-            </template>
+          <template v-if="player.starPlayerList.length > 0">
+            <div
+              v-for="item in player.starPlayerList"
+              :key="item.id"
+              class="ma-2"
+            >
+              <player-card
+                :playerData="item"
+                @click.native="addStartingPlayer(item)"
+              ></player-card>
+            </div>
+          </template>
         </v-sheet>
       </v-col>
     </v-row>
+    
   </v-container>
 </template>
 <script>
 import { mapState, mapGetters } from 'vuex'
 import HooperCarousel from '@/components/common/HooperCarousel'
+import playerCard from '@/components/common/playerCard'
 export default {
   components: {
     HooperCarousel,
+    playerCard,
   },
-  data: () => ({}),
-  computed: { ...mapState(['player']) },
+  data: () => ({
+    statusList: [
+      'power',
+      'contact',
+      'base_speed',
+      'defense_speed',
+      'defense_range',
+      'throw_power',
+      'throw_skill',
+      'dex',
+    ],
+    currCard: null,
+  }),
+  computed: {
+    ...mapState(['player']),
+  },
   watch: {},
-  methods: {},
+  methods: {
+    selectCard(val) {
+      //
+      if (val != this.currCard) {
+        this.currCard = val
+      } 
+      //
+      else {
+        this.currCard = null
+      }
+    },
+
+    addStartingPlayer(val) {
+      if (this.currCard != null) {
+        this.$store.commit('player/ADD_STARTING_PLAYER', {
+          index: this.currCard,
+          data: val,
+        })
+      }
+    },
+    removeStartingPlayer() {
+      if (this.currCard != null) {
+        this.$store.commit('player/REMOVE_STARTING_PLAYER', {
+          index: this.currCard,
+        })
+      }
+    },
+  },
+  mounted() {},
 }
 </script>
 <style lang="scss" scoped>
 .player-wrapper {
   width: 100%;
-  min-height: 500px;
-  background: lightblue;
+  padding: 10px 2%;
+  height: 65vh;
+  background: #e7e8ea;
   > ul {
     padding-left: 0;
     width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     list-style: none;
     > li {
-      width: calc(100% / 9);
+      width: calc(90% / 9);
+      margin: 1% 1%;
+      height: 100%;
       .player-container {
-        background: #aaa;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        height: 100%;
+        .order {
+          margin-bottom: 5px;
+          width: 100%;
+          height: 5%;
+          border-radius: 8px;
+          background: #535353;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          > span {
+            // height: 100%;
+            border-radius: 8px;
+            text-align: center;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            &:first-child {
+              width: 30%;
+              height: 100%;
+              background: whitesmoke;
+            }
+            &:last-child {
+              width: 70%;
+              color: white;
+            }
+          }
+        }
+        .card {
+          width: 100%;
+          height: 30%;
+          background: #d3d4d6;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          position: relative;
+          &.active {
+            border: solid 2px yellow;
+          }
+          .close-player {
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 1;
+          }
+          .add-player {
+            @include center;
+          }
+        }
+        .status {
+          margin-top: 10px;
+          width: 100%;
+          height: 40%;
+          > ul {
+            padding-left: 0;
+            list-style: none;
+            height: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            > li {
+              width: 100%;
+              height: calc(100% -4px / 8);
+              margin: 2px 2px;
+              border-radius: 6px;
+              background: #d3d4d6;
+              text-align: center;
+              position: relative;
+              > div {
+                height: 100%;
+                border-radius: inherit;
+                background: orange;
+              }
+              &::after {
+                content: attr(data-content);
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                border-radius: inherit;
+                color: white;
+              }
+            }
+          }
+        }
+        .plus {
+          margin-top: 10px;
+          width: 100%;
+          height: 15%;
+          > ul {
+            padding-left: 0;
+            list-style: none;
+            height: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            > li {
+              width: 100%;
+              height: calc(100% -4px / 3);
+              margin: 2px 2px;
+              border-radius: 6px;
+              background: #d3d4d6;
+              > div {
+              }
+            }
+          }
+        }
       }
     }
   }
 }
-.avatar-wrapper {
+.bench-wrapper {
   display: flex;
   align-items: center;
-  justify-content: center;
   flex-wrap: wrap;
   height: 100%;
-  overflow-x: scroll;
   padding: 0;
   margin: 0;
-  .avatar-container {
-    width: 6%;
-    // width: 20%;
-    // min-height: 139px;
+  > div {
+    width: 8%;
+    min-width: 8%;
     max-height: 170px;
     position: relative;
-    border-radius: 4px;
-    color: white;
-    font-size: 1em;
-    border: 0.5px solid #6c6c6c;
-    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.7);
-    @media screen and(max-width: 500px) {
-      font-size: 0.6em;
-    }
-    &.purple-card {
-      @include purple-bg;
-    }
-    &.red-card {
-      @include red-bg;
-    }
-    &.orange-card {
-      @include orange-bg;
-    }
-    &.blue-card {
-      @include blue-bg;
-    }
-    .avatar-pic {
-      width: 100%;
-      height: 80%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      pointer-events: none;
-      > img {
-        width: 80%;
-        min-height: 100%;
-      }
-      .avatar-ovr {
-        position: absolute;
-        top: 0;
-        right: 2%;
-        text-shadow: 0 0 5px black;
-      }
-      .avatar-weather {
-        position: absolute;
-        top: 16%;
-        right: 2%;
-        transform: translateX(4%);
-        &.sun {
-          color: red;
-        }
-        &.cloud {
-          color: #f0f0f0;
-        }
-        &.snow {
-          color: #66b3ff;
-        }
-        &.rain {
-          color: #0080ff;
-        }
-        &.none {
-          color: green;
-        }
-      }
-      .avatar-field {
-        position: absolute;
-        bottom: 2%;
-        right: 2%;
-        text-shadow: 0 0 5px black;
-      }
-      > span:last-child {
-        position: absolute;
-        left: 2%;
-        bottom: 2%;
-        font-weight: 700;
-        font-size: 1em;
-        padding: 2px 6px;
-        border: 0.5px solid #3c3c3c;
-        border-radius: 4px;
-        &.none {
-          display: none;
-        }
-        &.copper {
-          @include copper;
-        }
-        &.silver {
-          @include silver;
-        }
-        &.gold {
-          @include gold;
-        }
-        &.rainbow {
-          @include rainbow;
-        }
-      }
-    }
-    .avatar-name {
-      width: 100%;
-      height: 20%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      > span {
-        font-size: 100%;
-        @media screen and(max-width: 500px) {
-          font-size: 150%;
-        }
-      }
-    }
   }
 }
 </style>
