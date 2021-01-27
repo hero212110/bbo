@@ -5,15 +5,18 @@
       <nuxt />
     </v-main>
     <team-speed-dial></team-speed-dial>
+    <notify />
   </v-app>
 </template>
 
 <script>
 import layoutHeader from '@/components/layout/layoutHeader'
 import teamSpeedDial from '@/components/team/teamSpeedDial'
+import Notify from '@/components/common/Notify'
+
 export default {
   name: 'default',
-  components: { layoutHeader, teamSpeedDial },
+  components: { layoutHeader, teamSpeedDial, Notify },
   data: () => ({}),
   mounted() {
     // this.$store.commit('player/INITIAL_STATE')

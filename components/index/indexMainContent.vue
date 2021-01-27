@@ -42,14 +42,15 @@
               <div class="player-block">
                 <div class="header">
                   <div>
-                    <v-btn icon @click="starPlayer(item)">
+                    <v-btn text @click="starPlayer(item)">
                       <v-icon
+                        left
                         :color="$isStarPlayer(item.id) ? 'yellow' : 'grey'"
-                        >fas fa-star</v-icon
                       >
+                        fas fa-star
+                      </v-icon>
+                      <span>{{ item.year }} {{ item.name }}</span>
                     </v-btn>
-
-                    <span>{{ item.year }} {{ item.name }}</span>
                   </div>
                   <div>
                     <span>{{ $getIdText(item.field) }} {{ item.ovr }} </span>
@@ -306,6 +307,14 @@ export default {
     },
     starPlayer(val) {
       this.$store.commit('player/STAR_PLAYER', val)
+      // if (this.player.starPlayerList.length < 9) {
+
+      // } else {
+      //   this.$store.commit('notify/fireNotify', {
+      //     type: 'error',
+      //     msg: '我的最愛上限為9名球員',
+      //   })
+      // }
     },
   },
   mounted() {
@@ -362,7 +371,7 @@ export default {
         width: 35%;
         padding: 0 0 10px 10px;
       }
-      .avatar-card{
+      .avatar-card {
         width: 100%;
         height: 170px;
       }

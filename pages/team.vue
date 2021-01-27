@@ -6,7 +6,7 @@
           <div class="player-wrapper">
             <ul>
               <li
-                v-for="(item, index) in player.startingPlayerList"
+                v-for="(item, index) in upgradedStartingPlayerList"
                 :key="index"
               >
                 <div class="player-container">
@@ -42,8 +42,20 @@
                       class="add-player"
                       >fas fa-baseball-ball</v-icon
                     >
+                    <template v-if="item">
+                      <input
+                        type="text"
+                        class="level-input"
+                        v-model="startingLevel[index].level"
+                        :class="$getLevelColor(item.level ? item.level : 0)"
+                      />
+                    </template>
 
-                    <player-card v-if="item" :playerData="item"></player-card>
+                    <player-card
+                      v-if="item"
+                      :playerData="item"
+                      :customLevel="true"
+                    ></player-card>
                   </div>
                   <div class="status">
                     <ul>
@@ -79,33 +91,37 @@
       </v-col>
 
       <v-col cols="12">
-        <v-sheet min-height="20vh" rounded="lg" class="bench-wrapper">
+        <v-sheet min-height="20vh" rounded="lg">
           <!-- <hooper-carousel></hooper-carousel> -->
-          <template v-if="player.starPlayerList.length > 0">
-            <div
-              v-for="item in player.starPlayerList"
-              :key="item.id"
-              class="ma-2"
-            >
-              <player-card
-                :playerData="item"
-                @click.native="addStartingPlayer(item)"
-              ></player-card>
-            </div>
-          </template>
+          <div class="bench-wrapper">
+            <ul v-if="player.starPlayerList.length > 0">
+              <li v-for="item in player.starPlayerList" :key="item.id">
+                <div class="player-container">
+                  <player-card
+                    :playerData="item"
+                    @click.native="addStartingPlayer(item)"
+                    :customLevel="true"
+                  ></player-card>
+                </div>
+              </li>
+            </ul>
+          </div>
         </v-sheet>
       </v-col>
     </v-row>
+    <team-dialog></team-dialog>
   </v-container>
 </template>
 <script>
 import { mapState, mapGetters } from 'vuex'
 import HooperCarousel from '@/components/common/HooperCarousel'
 import playerCard from '@/components/common/playerCard'
+import teamDialog from '@/components/team/teamDialog'
 export default {
   components: {
     HooperCarousel,
     playerCard,
+    teamDialog,
   },
   data: () => ({
     statusList: [
@@ -122,8 +138,23 @@ export default {
   }),
   computed: {
     ...mapState(['player']),
+    ...mapGetters('player', {
+      upgradedStartingPlayerList: 'GetUpgradedStartingPlayerList',
+    }),
+    startingLevel: {
+      get() {
+        return this.$store.state.player.startingPlayerList
+      },
+      set(level) {
+        this.$store.commit('player/UPDATE_CURR_STARTING_PLAYER_LEVEL', level)
+      },
+    },
   },
-  watch: {},
+  watch: {
+    currCard(val) {
+      this.$store.commit('player/SET_CURR_STARTING_PLAYER', val)
+    },
+  },
   methods: {
     selectCard(val) {
       if (val != this.currCard) {
@@ -223,6 +254,37 @@ export default {
           &.active {
             border: solid 2px yellow;
           }
+          .level-input {
+            display: block;
+            position: absolute;
+            left: 0;
+            bottom: 20%;
+            width: 30%;
+            border-radius: 8px;
+            z-index: 3;
+            text-align: center;
+            text-shadow: 0 0 10px black !important;
+            color: white;
+            border: 1px solid #bebebe;
+            background: rgba($color: #484848, $alpha: 0.8);
+            &.copper {
+              @include copper;
+            }
+            &.silver {
+              @include silver;
+            }
+            &.gold {
+              @include gold;
+            }
+            &.rainbow {
+              @include rainbow;
+            }
+            &:focus {
+              border: 1px solid yellow;
+              box-shadow: none;
+              color: white;
+            }
+          }
           .close-player {
             position: absolute;
             left: 0;
@@ -265,6 +327,7 @@ export default {
                 bottom: 0;
                 border-radius: inherit;
                 color: white;
+                text-shadow: 0 0 5px black;
               }
             }
           }
@@ -285,8 +348,6 @@ export default {
               margin: 2px 2px;
               border-radius: 6px;
               background: #d3d4d6;
-              > div {
-              }
             }
           }
         }
@@ -295,17 +356,26 @@ export default {
   }
 }
 .bench-wrapper {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  height: 100%;
-  padding: 0;
-  margin: 0;
-  > div {
-    width: 8%;
-    min-width: 8%;
-    max-height: 170px;
-    position: relative;
+  width: 100%;
+  padding: 10px 2%;
+  height: 20vh;
+  background: #e7e8ea;
+  > ul {
+    padding-left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    > li {
+      width: calc(90% / 9);
+      margin: 1% 1%;
+      height: 100%;
+      .player-container {
+        height: 100%;
+      }
+    }
   }
 }
 </style>

@@ -81,7 +81,6 @@ export default ({ app, store }, inject) => {
     return icon
   })
 
-
   inject('isStarPlayer', (params) => {
     let tmp = JSON.parse(JSON.stringify(store.state.player.starPlayerList))
     if (tmp.length == 0) {
@@ -94,5 +93,9 @@ export default ({ app, store }, inject) => {
 
       return arr.includes(params) ? true : false
     }
+  })
+
+  inject('notify', ({ type, msg }) => {
+    store.commit('notify/fireNotify', { type, msg })
   })
 }

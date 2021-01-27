@@ -65,6 +65,46 @@ const getters = {
 
     return tmp
   },
+
+  GetUpgradedStartingPlayerList: (state) => {
+    let statusList = [
+      'ovr',
+      'power',
+      'contact',
+      'base_speed',
+      'defense_speed',
+      'defense_range',
+      'throw_power',
+      'throw_skill',
+      'dex',
+    ]
+    let tmp = JSON.parse(JSON.stringify(state.startingPlayerList))
+
+    tmp.forEach((item, index) => {
+      if (item) {
+        if (item.level) {
+          let arr = levelList[item.type][item.level]
+          for (let i = 0; i < statusList.length; i++) {
+            item[statusList[i]] += arr[i]
+          }
+        }
+        if (state.basicTeam.val && item.team == state.basicTeam.id) {
+          let arr = teamList.ALLSTAR[state.basicTeam.val]
+          for (let i = 0; i < statusList.length; i++) {
+            item[statusList[i]] += arr[i]
+          }
+        }
+        if (state.basicYear.val && item.team == state.basicYear.id) {
+          let arr = teamList.YEAR[state.basicYear.val]
+          for (let i = 0; i < statusList.length; i++) {
+            item[statusList[i]] += arr[i]
+          }
+        }
+      }
+    })
+
+    return tmp
+  },
 }
 
 export default getters

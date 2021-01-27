@@ -1,5 +1,5 @@
 <template>
-  <div class="avatar-container" :class="$getCardColor(playerData.ovr)">
+  <div class="avatar-container" :class="$id2ovr2color(playerData.id)">
     <div class="avatar-pic">
       <img
         :src="require(`../../static/images/player/${playerData.team}.png`)"
@@ -13,8 +13,8 @@
       <span class="avatar-field">
         {{ playerData.field.toUpperCase() }}
       </span>
-      <span :class="$getLevelColor(playerData.level)">
-        +{{ playerData.level }}
+      <span v-if="!customLevel" class="level" :class="$getLevelColor(player.level)">
+        +{{ player.level }}
       </span>
     </div>
 
@@ -26,12 +26,21 @@
   </div>
 </template>
 <script>
+import { mapState, mapGetters } from 'vuex'
+
 export default {
   props: {
     playerData: {
       type: Object,
       default: {},
     },
+    customLevel: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  computed: {
+    ...mapState(['player']),
   },
 }
 </script>
@@ -69,8 +78,12 @@ export default {
     position: relative;
     pointer-events: none;
     > img {
-      width: 80%;
-      min-height: 100%;
+      // width: 80%;
+      // min-height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      display: block;
+      margin: auto;
     }
     .avatar-ovr {
       position: absolute;
@@ -105,7 +118,7 @@ export default {
       right: 2%;
       text-shadow: 0 0 5px black;
     }
-    > span:last-child {
+    .level {
       position: absolute;
       left: 2%;
       bottom: 2%;
@@ -136,7 +149,7 @@ export default {
     height: 20%;
     display: flex;
     justify-content: center;
-    align-playerdatas: center;
+    align-items: center;
     > span {
       font-size: 100%;
       @media screen and(max-width: 500px) {
