@@ -79,7 +79,7 @@
 
                   <div class="plus">
                     <ul>
-                      <li v-for="i in 3" :key="i">
+                      <li v-for="i in 2" :key="i">
                         <div>
                           <template v-if="item">
                             <select
@@ -238,19 +238,7 @@ export default {
       height: 100%;
       position: relative;
       &.active {
-        // &::after {
-        //   content: '';
-        //   position: absolute;
-        //   top: 0;
-        //   bottom: 3%;
-        //   left: -3%;
-        //   right: 0;
-        //   width: 106%;
-        //   height: 102%;
-        //   border: solid 2px yellow;
-        //   border-radius: 6px;
-        // }
-        .card{
+        .card {
           border: solid 2px yellow;
         }
       }
@@ -260,6 +248,8 @@ export default {
             content: attr(data-label);
             position: absolute;
             left: -30%;
+            top: 50%;
+            transform: translateY(-50%);
             font-size: 0.6em;
             font-weight: 600;
           }
@@ -366,7 +356,7 @@ export default {
             flex-wrap: wrap;
             > li {
               width: 100%;
-              height: calc(100% -4px / 8);
+              height: calc((100% - 10px) / 8);
               margin: 2px 2px;
               border-radius: 6px;
               background: #d3d4d6;
@@ -393,19 +383,19 @@ export default {
           }
         }
         .plus {
-          margin-top: 10px;
+          margin-top: 30px;
           width: 100%;
           height: 20%;
           > ul {
             padding-left: 0;
             list-style: none;
             height: 100%;
-            display: flex;
-            flex-wrap: wrap;
+            // display: flex;
+            // flex-wrap: wrap;
             > li {
               width: 100%;
-              height: calc(100% -4px / 3);
-              margin: 2px 2px;
+              height: calc((100% - 10px) / 3);
+              margin: 5px 0px;
               border-radius: 6px;
               background: rgba($color: #484848, $alpha: 0.8);
               > div {

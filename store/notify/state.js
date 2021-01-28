@@ -1,7 +1,7 @@
 const state = () => ({
   isOpen: false,
-  type: '',
-  message: '',
+  type: 'error',
+  message: '我的最愛上限為9名球員',
 })
 
 export default state
