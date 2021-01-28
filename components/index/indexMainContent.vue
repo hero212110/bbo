@@ -307,14 +307,6 @@ export default {
     },
     starPlayer(val) {
       this.$store.commit('player/STAR_PLAYER', val)
-      // if (this.player.starPlayerList.length < 9) {
-
-      // } else {
-      //   this.$store.commit('notify/fireNotify', {
-      //     type: 'error',
-      //     msg: '我的最愛上限為9名球員',
-      //   })
-      // }
     },
   },
   mounted() {

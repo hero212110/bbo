@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12">
         <v-sheet min-height="65vh" rounded="lg" droppable class="pa-2">
-          <div class="player-wrapper">
+          <div class="player-wrapper text-xs-caption text-sm-body-2 text-md-body-1 text-lg-h6">
             <ul>
               <li
                 v-for="(item, index) in upgradedStartingPlayerList"
@@ -57,7 +57,7 @@
                       :customLevel="true"
                     ></player-card>
                   </div>
-                  <div class="status">
+                  <div class="status text-xs-caption text-sm-caption text-md-body-1 text-lg-h6">
                     <ul>
                       <li
                         v-for="(status, i) in statusList"
@@ -215,7 +215,11 @@ export default {
       }
     },
   },
-  mounted() {},
+  mounted() {
+    if (document.body.clientWidth < 500) {
+      this.$notify({ type: 'warning', msg: '打線模擬只適用於PC' })
+    }
+  },
 }
 </script>
 <style lang="scss" scoped>

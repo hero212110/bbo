@@ -1,5 +1,8 @@
 <template>
-  <div class="avatar-container" :class="$id2ovr2color(playerData.id)">
+  <div
+    class="avatar-container text-xs-caption text-sm-body-2 text-md-body-1 text-lg-h6"
+    :class="$id2ovr2color(playerData.id)"
+  >
     <div class="avatar-pic">
       <img
         :src="require(`../../static/images/player/${playerData.team}.png`)"
@@ -13,7 +16,11 @@
       <span class="avatar-field">
         {{ playerData.field.toUpperCase() }}
       </span>
-      <span v-if="!customLevel" class="level" :class="$getLevelColor(player.level)">
+      <span
+        v-if="!customLevel"
+        class="level"
+        :class="$getLevelColor(player.level)"
+      >
         +{{ player.level }}
       </span>
     </div>
