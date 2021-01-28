@@ -12,6 +12,7 @@
         fab
         dark
         small
+        data-content="設定隊伍年度"
         color="primary"
         class="edit-basic"
         @click="showDialog"
@@ -23,11 +24,35 @@
         dark
         small
         class="mode"
-        :color="player.swapMode ? 'error' : 'green'"
+        :color="player.swapMode ? 'warning' : 'green'"
         :data-content="player.swapMode ? '關閉變更打序' : '啟用變更打序'"
         @click="setSwapMode(!player.swapMode)"
       >
         <v-icon> fas fa-pencil-alt</v-icon>
+      </v-btn>
+
+      <v-btn
+        fab
+        dark
+        small
+        data-content="清空先發名單"
+        color="error"
+        class="edit-basic"
+        @click="clearStarting"
+      >
+        <v-icon>fas fa-eraser</v-icon>
+      </v-btn>
+
+        <v-btn
+        fab
+        dark
+        small
+        data-content="清空我的最愛"
+        color="error"
+        class="edit-basic"
+        @click="clearBench"
+      >
+        <v-icon>far fa-star-half</v-icon>
       </v-btn>
     </v-speed-dial>
   </div>
@@ -47,6 +72,12 @@ export default {
     },
     showDialog() {
       this.$store.commit('player/SET_BASIC_DIALOG', true)
+    },
+    clearStarting() {
+      this.$store.commit('player/CLEAR_STARTING_PLAYER')
+    },
+     clearBench() {
+      this.$store.commit('player/CLEAR_STAR_PLAYER')
     },
   },
 }
@@ -70,7 +101,7 @@ export default {
   }
   .edit-basic {
     &::after {
-      content: '設定隊伍年度';
+      content: attr(data-content);
       position: absolute;
       left: -240%;
       top: 50%;

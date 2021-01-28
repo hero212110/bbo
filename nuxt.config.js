@@ -3,7 +3,7 @@ export default {
   ssr: false,
   head: {
     titleTemplate: '',
-    title: '全民打棒球PRO | 打者資料查詢系統',
+    title: '全民打棒球PRO | 打者資料查詢/模擬組隊系統',
     htmlAttrs: { lang: 'zh-Hant-TW' },
     meta: [
       { charset: 'utf-8' },

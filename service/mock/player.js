@@ -53,6 +53,21 @@ class PlayerService {
       return error
     }
   }
+
+  static getFullPlayerList() {
+    try {
+      let minYeaR = 2007
+      let maxYeaR = 2020
+      let players = []
+      for (let i = minYeaR; i <= maxYeaR; i++) {
+        fullPlayer[`player${i}`] &&
+          (players = players.concat(fullPlayer[`player${i}`]))
+      }
+      return players
+    } catch (error) {
+      return error
+    }
+  }
 }
 export default PlayerService
 

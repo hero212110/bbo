@@ -1,5 +1,6 @@
 import statusList from '@/static/data/common/status.json'
 import idList from '@/static/data/common/id.json'
+import PlayerService from '@/service/mock/player'
 export default ({ app, store }, inject) => {
   inject('getStatusText', (params) => {
     return statusList[params] || ''
@@ -55,11 +56,14 @@ export default ({ app, store }, inject) => {
   })
 
   inject('id2ovr2color', (params) => {
-    let tmp = JSON.parse(JSON.stringify(store.state.player.playerList))
-    let player = tmp.find((item) => {
-      return item.id == params
+    let fullPlayerList = JSON.parse(
+      JSON.stringify(PlayerService.getFullPlayerList())
+    )
+    let player = fullPlayerList.find((item) => {
+      if (item) return item.id == params
     })
-    let { ovr } = player
+
+    let ovr = player ? player.ovr : 0
     let color =
       ovr > 80 ? 'purple' : ovr > 75 ? 'red' : ovr > 70 ? 'orange' : 'blue'
     return `${color}-card`

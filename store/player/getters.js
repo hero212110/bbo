@@ -1,20 +1,19 @@
 import levelList from '@/static/data/upgrade/level.json'
 import teamList from '@/static/data/upgrade/team.json'
 import extraList from '@/static/data/upgrade/extra.json'
-
+const statusList = [
+  'ovr',
+  'power',
+  'contact',
+  'base_speed',
+  'defense_speed',
+  'defense_range',
+  'throw_power',
+  'throw_skill',
+  'dex',
+]
 const getters = {
   GetUpgradedPlayerList: (state) => {
-    let statusList = [
-      'ovr',
-      'power',
-      'contact',
-      'base_speed',
-      'defense_speed',
-      'defense_range',
-      'throw_power',
-      'throw_skill',
-      'dex',
-    ]
     let tmp = JSON.parse(JSON.stringify(state.playerList))
 
     if (state.level) {
@@ -67,17 +66,6 @@ const getters = {
   },
 
   GetUpgradedStartingPlayerList: (state) => {
-    let statusList = [
-      'ovr',
-      'power',
-      'contact',
-      'base_speed',
-      'defense_speed',
-      'defense_range',
-      'throw_power',
-      'throw_skill',
-      'dex',
-    ]
     let tmp = JSON.parse(JSON.stringify(state.startingPlayerList))
 
     tmp.forEach((item, index) => {
@@ -88,18 +76,32 @@ const getters = {
             item[statusList[i]] += arr[i]
           }
         }
-        if (state.basicTeam.val && item.team == state.basicTeam.id) {
-          let arr = teamList.ALLSTAR[state.basicTeam.val]
+        if (item.extra) {
+          let arr = extraList[item.extra]
           for (let i = 0; i < statusList.length; i++) {
             item[statusList[i]] += arr[i]
           }
         }
-        if (state.basicYear.val && item.team == state.basicYear.id) {
+        if (state.basicTeam.val) {
+          let obj = {
+            brothers: ['brothers', 'ctbc_brothers'],
+            ctbc_brothers: ['brothers', 'ctbc_brothers'],
+            lions: ['lions'],
+          }
+          if (obj[state.basicTeam.id].includes(item.team)) {
+            let arr = teamList.ALLSTAR[state.basicTeam.val]
+            for (let i = 0; i < statusList.length; i++) {
+              item[statusList[i]] += arr[i]
+            }
+          }
+        }
+        if (state.basicYear.val && item.year == state.basicYear.id) {
           let arr = teamList.YEAR[state.basicYear.val]
           for (let i = 0; i < statusList.length; i++) {
             item[statusList[i]] += arr[i]
           }
         }
+        
       }
     })
 

@@ -1,32 +1,21 @@
 <template>
   <v-app-bar app color="white" flat>
-    <v-container class="py-0 fill-height">
-      <v-avatar class="mr-10" size="50" tile>
+    <v-app-bar-nav-icon @click.stop="toggleDrawer"></v-app-bar-nav-icon>
+    <v-toolbar-title>
+      <v-avatar size="50" tile>
         <img src="/images/common/logo.png" alt="" />
       </v-avatar>
-
-      <v-btn
-        v-for="link in links"
-        :key="link.text"
-        text
-        @click="$router.push(link.path)"
-        :color="$route.path == link.path ? 'success' : ''"
-      >
-        {{ link.text }}
-      </v-btn>
-
-      <v-spacer></v-spacer>
-
-      <v-responsive max-width="260">
-        <v-text-field
-          dense
-          flat
-          hide-details
-          rounded
-          solo-inverted
-        ></v-text-field>
-      </v-responsive>
-    </v-container>
+    </v-toolbar-title>
+    <v-spacer></v-spacer>
+    <v-btn icon>
+      <v-icon>mdi-magnify</v-icon>
+    </v-btn>
+    <v-btn icon>
+      <v-icon>mdi-filter</v-icon>
+    </v-btn>
+    <v-btn icon>
+      <v-icon>mdi-dots-vertical</v-icon>
+    </v-btn>
     <!-- <custom-marquee
       :announcementList="announcementList"
       :speed="80"
@@ -34,14 +23,12 @@
   </v-app-bar>
 </template>
 <script>
+import { mapState, mapGetters } from 'vuex'
+
 import CustomMarquee from '@/components/common/CustomMarquee'
 export default {
   components: { CustomMarquee },
   data: () => ({
-    links: [
-      { path: '/', text: '全民打棒球PRO 打者能力值查詢' },
-      { path: '/team', text: '隊伍打線模擬' },
-    ],
     announcementList: [
       {
         text:
@@ -53,6 +40,14 @@ export default {
       },
     ],
   }),
+  computed: {
+    ...mapState(['player']),
+  },
+  methods: {
+    toggleDrawer() {
+      this.$store.commit('player/SET_DRAWER', !this.player.drawer)
+    },
+  },
 }
 </script>
 <style lang="scss" scoped></style>

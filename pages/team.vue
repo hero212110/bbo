@@ -8,6 +8,8 @@
               <li
                 v-for="(item, index) in upgradedStartingPlayerList"
                 :key="index"
+                :class="{ active: index == currCard }"
+                @click="selectCard(index)"
               >
                 <div class="player-container">
                   <div class="order">
@@ -21,11 +23,7 @@
                     </span>
                     <span v-else> 無 </span>
                   </div>
-                  <div
-                    class="card"
-                    :class="{ active: index == currCard }"
-                    @click="selectCard(index)"
-                  >
+                  <div class="card">
                     <v-icon
                       v-if="index == currCard && item != null"
                       small
@@ -44,9 +42,11 @@
                     >
                     <template v-if="item">
                       <input
-                        type="text"
+                        type="number"
+                        min="0"
+                        max="10"
                         class="level-input"
-                        v-model="startingLevel[index].level"
+                        v-model.number="startingLevel[index].level"
                         :class="$getLevelColor(item.level ? item.level : 0)"
                       />
                     </template>
@@ -60,9 +60,10 @@
                   <div class="status">
                     <ul>
                       <li
-                        v-for="status in statusList"
+                        v-for="(status, i) in statusList"
                         :key="status"
                         :data-content="item ? item[status] : ''"
+                        :data-label="labelList[i]"
                       >
                         <div
                           :style="{
@@ -79,7 +80,18 @@
                   <div class="plus">
                     <ul>
                       <li v-for="i in 3" :key="i">
-                        <div></div>
+                        <div>
+                          <template v-if="item">
+                            <select
+                              v-model="startingExtra[index].extra"
+                              :class="{ 'no-visible': i != 1 }"
+                            >
+                              <option :value="null">選擇額外加成⌵</option>
+                              <option value="SPEED">力5打5速5速5</option>
+                              <option value="THROW">力5打5速5傳5</option>
+                            </select>
+                          </template>
+                        </div>
                       </li>
                     </ul>
                   </div>
@@ -89,10 +101,8 @@
           </div>
         </v-sheet>
       </v-col>
-
       <v-col cols="12">
         <v-sheet min-height="20vh" rounded="lg">
-          <!-- <hooper-carousel></hooper-carousel> -->
           <div class="bench-wrapper">
             <ul v-if="player.starPlayerList.length > 0">
               <li v-for="item in player.starPlayerList" :key="item.id">
@@ -118,6 +128,11 @@ import HooperCarousel from '@/components/common/HooperCarousel'
 import playerCard from '@/components/common/playerCard'
 import teamDialog from '@/components/team/teamDialog'
 export default {
+  head() {
+    return {
+      title: '全民打棒球PRO | 隊伍打線模擬',
+    }
+  },
   components: {
     HooperCarousel,
     playerCard,
@@ -135,6 +150,7 @@ export default {
       'dex',
     ],
     currCard: null,
+    labelList: ['力量', '打擊', '跑速', '守速', '守範', '傳力', '傳技', '敏捷'],
   }),
   computed: {
     ...mapState(['player']),
@@ -149,6 +165,14 @@ export default {
         this.$store.commit('player/UPDATE_CURR_STARTING_PLAYER_LEVEL', level)
       },
     },
+    startingExtra: {
+      get() {
+        return this.$store.state.player.startingPlayerList
+      },
+      set(extra) {
+        this.$store.commit('player/UPDATE_CURR_STARTING_PLAYER_EXTRA', extra)
+      },
+    },
   },
   watch: {
     currCard(val) {
@@ -160,7 +184,6 @@ export default {
       if (val != this.currCard) {
         //if swap => swapPlayer
         if (this.player.swapMode && this.currCard != null) {
-          // console.log(this.currCard, val)
           this.$store.commit('player/SWAP_PLAYER', {
             p1: this.currCard,
             p2: val,
@@ -213,6 +236,35 @@ export default {
       width: calc(90% / 9);
       margin: 1% 1%;
       height: 100%;
+      position: relative;
+      &.active {
+        // &::after {
+        //   content: '';
+        //   position: absolute;
+        //   top: 0;
+        //   bottom: 3%;
+        //   left: -3%;
+        //   right: 0;
+        //   width: 106%;
+        //   height: 102%;
+        //   border: solid 2px yellow;
+        //   border-radius: 6px;
+        // }
+        .card{
+          border: solid 2px yellow;
+        }
+      }
+      &:first-child {
+        .status > ul > li {
+          &::before {
+            content: attr(data-label);
+            position: absolute;
+            left: -30%;
+            font-size: 0.6em;
+            font-weight: 600;
+          }
+        }
+      }
       .player-container {
         height: 100%;
         .order {
@@ -251,9 +303,15 @@ export default {
           align-items: center;
           flex-wrap: wrap;
           position: relative;
-          &.active {
-            border: solid 2px yellow;
+          input[type='number']::-webkit-outer-spin-button,
+          input[type='number']::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
           }
+          input[type='number'] {
+            -moz-appearance: textfield;
+          }
+
           .level-input {
             display: block;
             position: absolute;
@@ -267,6 +325,7 @@ export default {
             color: white;
             border: 1px solid #bebebe;
             background: rgba($color: #484848, $alpha: 0.8);
+
             &.copper {
               @include copper;
             }
@@ -305,6 +364,7 @@ export default {
             height: 100%;
             display: flex;
             flex-wrap: wrap;
+
             > li {
               width: 100%;
               height: calc(100% -4px / 8);
@@ -318,6 +378,7 @@ export default {
                 border-radius: inherit;
                 background: orange;
               }
+
               &::after {
                 content: attr(data-content);
                 position: absolute;
@@ -335,7 +396,7 @@ export default {
         .plus {
           margin-top: 10px;
           width: 100%;
-          height: 15%;
+          height: 20%;
           > ul {
             padding-left: 0;
             list-style: none;
@@ -347,7 +408,32 @@ export default {
               height: calc(100% -4px / 3);
               margin: 2px 2px;
               border-radius: 6px;
-              background: #d3d4d6;
+              // background: #d3d4d6;
+              background: rgba($color: #484848, $alpha: 0.8);
+              > div {
+                width: 100%;
+                height: 100%;
+                border: solid 1px grey;
+                border-radius: inherit;
+                > select {
+                  width: 100%;
+                  height: 100%;
+                  appearance: none;
+                  -webkit-appearance: none;
+                  padding: 1% 10%;
+                  // font-size: 0.5em;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                  color: white;
+                  > option {
+                    background: rgba($color: #484848, $alpha: 0.8);
+                  }
+                  &.no-visible {
+                    visibility: hidden;
+                    pointer-events: none;
+                  }
+                }
+              }
             }
           }
         }

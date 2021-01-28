@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <layout-header></layout-header>
+    <layout-drawer></layout-drawer>
     <v-main class="grey lighten-3">
       <nuxt />
     </v-main>
@@ -11,12 +12,13 @@
 
 <script>
 import layoutHeader from '@/components/layout/layoutHeader'
+import layoutDrawer from '@/components/layout/layoutDrawer'
 import teamSpeedDial from '@/components/team/teamSpeedDial'
 import Notify from '@/components/common/Notify'
 
 export default {
   name: 'default',
-  components: { layoutHeader, teamSpeedDial, Notify },
+  components: { layoutHeader, layoutDrawer, teamSpeedDial, Notify },
   data: () => ({}),
   mounted() {
     // this.$store.commit('player/INITIAL_STATE')

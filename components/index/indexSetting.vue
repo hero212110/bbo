@@ -3,15 +3,15 @@
     <v-sheet min-height="40vh" rounded="lg">
       <ul class="setting-list">
         <li style="width: 100%">
-          <v-btn color="success" class="ma-2 white--text" @click="clearStar">
-            <v-icon left>fas fa-star</v-icon>
-            <span>清空我的最愛</span>
-          </v-btn>
-        </li>
-        <li>
           <v-btn color="blue" class="ma-2 white--text" @click="setSearchModal">
             <v-icon left>fas fa-search</v-icon>
             <span>詳細搜尋</span>
+          </v-btn>
+        </li>
+        <li>
+          <v-btn color="error" class="ma-2 white--text" @click="clearStar">
+            <v-icon left>far fa-star-half</v-icon>
+            <span>清空最愛</span>
           </v-btn>
         </li>
         <li>

@@ -9,7 +9,7 @@
           </div>
         </v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn color="black" icon>
+        <v-btn color="black" icon @click="close">
           <v-icon>fas fa-times</v-icon>
         </v-btn>
       </v-app-bar>
@@ -33,33 +33,45 @@
             sm="8"
             class="main"
             :class="{
-              filtered: !isNotSelection,
+              filtered: currTab.id == 'team',
               scrolled: currTab.id == 'field' || currTab.id == 'type',
             }"
           >
-            <p v-if="isNotSelection" class="content-title">
-              {{ currTab.text }}
+            <p v-if="currTab.id == 'amount'" class="content-title">
+              設定隊伍年度,球員人數
             </p>
 
-            <div v-if="currTab.id == 'name'">
-               <v-select
+            <div v-if="currTab.id == 'amount'">
+              <v-select
                 label="隊伍年度"
-                prepend-icon="fas fa-users"
+                prepend-icon="fas fa-baseball-ball"
                 dense
                 solo
-              ></v-select>
+                v-model="team_year"
+                :items="database.year"
+              >
+                <template v-if="team_year" v-slot:append>年</template>
+              </v-select>
               <v-select
                 label="相同隊伍球員人數"
-                prepend-icon="fas fa-users"
+                prepend-icon="fas fa-baseball-ball"
                 dense
                 solo
-              ></v-select>
+                v-model="same_team_players"
+                :items="database.same_team_players"
+              >
+                <template v-if="same_team_players" v-slot:append>人</template>
+              </v-select>
               <v-select
                 label="相同年度球員人數"
-                prepend-icon="fas fa-users"
+                prepend-icon="fas fa-baseball-ball"
                 dense
                 solo
-              ></v-select>
+                v-model="same_year_players"
+                :items="database.same_year_players"
+              >
+                <template v-if="same_year_players" v-slot:append>人</template>
+              </v-select>
             </div>
 
             <div v-if="currTab.id == 'team'">
@@ -67,8 +79,8 @@
                 <li
                   v-for="item in database.team"
                   :key="item.id"
-                  :class="{ active: form.team.includes(item.id) }"
-                  @click="changeList(item)"
+                  :class="{ active: player.basicTeam.id == item.id }"
+                  @click="updateBasicTeam(item)"
                 >
                   <div>
                     <v-icon class="check-circle">fas fa-circle</v-icon>
@@ -83,7 +95,6 @@
                       alt=""
                     />
                   </template>
-                  
                 </li>
               </ul>
             </div>
@@ -92,15 +103,10 @@
       </v-card-text>
 
       <v-card-actions style="margin-top: 50px">
-      
         <v-spacer></v-spacer>
         <v-btn color="warning" class="ma-2 white--text" @click="resetField">
           <v-icon left>fas fa-sync-alt</v-icon>
           <span>重置</span>
-        </v-btn>
-        <v-btn color="success" class="ma-2 white--text" @click="doSearch">
-          <v-icon left>fas fa-save</v-icon>
-          <span>保存</span>
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -109,113 +115,66 @@
 <script>
 import { mapState, mapGetters } from 'vuex'
 import teamJSON from '@/static/data/form/team'
-import fieldJSON from '@/static/data/form/field'
-import weatherJSON from '@/static/data/form/weather'
-import typeJSON from '@/static/data/form/type'
 export default {
-  props: {
-    searchDialog: { type: Boolean, default: false },
-  },
   data() {
     return {
-      save: false,
       currTab: { id: 'team', text: '球團' },
       tabList: [
         { id: 'team', text: '球團' },
-        { id: 'name', text: '年度/球員人數' },
+        { id: 'amount', text: '年度/球員人數' },
       ],
-      form: {
-        name: '',
-        team: [],
-        field: [],
-        ovr: [],
-        year: [],
-        weather: [],
-        type: [],
-      },
       database: {
-        name: '',
         team: teamJSON,
-        field: fieldJSON,
-        ovr: [56, 92],
-        year: [2007, 2020],
-        weather: weatherJSON,
-        type: typeJSON,
+        year: [],
+        same_team_players: [0, 24, 28],
+        same_year_players: [0, 15, 20, 24, 28],
       },
     }
   },
   computed: {
     ...mapState(['player']),
-    currSearchDialog: {
+    team_year: {
       get() {
-        return this.searchDialog
+        return this.$store.state.player.basicYear.id
       },
-      set() {
-        return false
+      set(val) {
+        this.$store.commit('player/UPDATE_TEAM_YEAR', val)
       },
     },
-    isNotSelection() {
-      let arr = ['name', 'ovr', 'year']
-      return arr.includes(this.currTab.id)
+    same_team_players: {
+      get() {
+        return this.$store.state.player.basicTeam.val
+      },
+      set(val) {
+        this.$store.commit('player/UPDATE_SAME_TEAM_PLAYERS', val)
+      },
+    },
+    same_year_players: {
+      get() {
+        return this.$store.state.player.basicYear.val
+      },
+      set(val) {
+        this.$store.commit('player/UPDATE_SAME_YEAR_PLAYERS', val)
+      },
     },
   },
   methods: {
-    setSearchModal() {
-      this.$emit('setSearchModal', false)
-      this.save || this.resetField()
-    },
-    doSearch() {
-      this.$store.commit('player/SET_LOADING', true)
-      this.$store.commit('player/CLEAR_PLAYER_LIST')
-      this.$store.dispatch('player/fetchPlayerList', this.form)
-      this.save || this.resetField()
-      this.$emit('setSearchModal', false)
+    close() {
+      this.$store.commit('player/SET_BASIC_DIALOG', false)
     },
     resetField() {
-      this.currTab = JSON.parse(JSON.stringify({ id: 'name', text: '名稱' }))
-      this.form.name = ''
-      this.form.team = ['all']
-      this.form.field = ['all']
-      this.form.ovr = []
-      this.form.ovr.push(this.database.ovr[0])
-      this.form.ovr.push(this.database.ovr[1])
-      this.form.year = []
-      this.form.year.push(this.database.year[0])
-      this.form.year.push(this.database.year[1])
-      this.form.weather = ['all']
-      this.form.type = ['all']
+      this.currTab = JSON.parse(JSON.stringify({ id: 'team', text: '球團' }))
+      this.$store.commit('player/RESET_BASIC_TEAM')
     },
-    changeList(item) {
-      let currId = this.currTab.id
-      //移除選擇項
-      if (this.form[currId].includes(item.id)) {
-        let index = this.form[currId].indexOf(item.id)
-        this.form[currId].splice(index, 1)
-        //選擇項皆未選取時 => 設置為all
-        if (this.form[currId].length == 0) {
-          this.form[currId].push('all')
-        }
-      }
-      //新增選擇項
-      else {
-        //新增項為all時 => 移除其他項
-        if (item.id == 'all') {
-          this.form[currId] = ['all']
-        } else {
-          //只有all被選取時 => 移除all 再新增其他項
-          if (
-            this.form[currId].length == 1 &&
-            this.form[currId].includes('all')
-          ) {
-            this.form[currId] = []
-          }
-          this.form[currId].push(item.id)
-        }
-      }
+    updateBasicTeam(val) {
+      this.$store.commit('player/UPDATE_BASIC_TEAM', val)
     },
   },
   mounted() {
-    this.save || this.resetField()
+    for (let i = 2007; i <= 2020; i++) {
+      this.database.year.push(i)
+    }
+    this.database.team[0].text = '此團隊沒有特徵'
   },
 }
 </script>
@@ -254,7 +213,7 @@ export default {
     }
     .content-title {
       color: black;
-      font-size: 20px;
+      font-size: 18px;
       font-weight: bold;
       padding-left: 10px;
       position: relative;
@@ -262,7 +221,7 @@ export default {
         content: '|';
         position: absolute;
         left: 0px;
-        top: -2px;
+        top: 0px;
       }
     }
     .slider-txt {

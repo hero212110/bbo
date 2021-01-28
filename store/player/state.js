@@ -1,11 +1,12 @@
 const state = () => ({
   form: {},
+  drawer:false,
   playerList: [],
   starPlayerList: [],
   startingPlayerList: [null, null, null, null, null, null, null, null, null],
   currStartingPlayer: null,
   basicDialog: false,
-  basicTeam: { id: 'brothers', val: null },
+  basicTeam: { id: null, val: null },
   basicYear: { id: null, val: null },
   level: 0,
   member: {

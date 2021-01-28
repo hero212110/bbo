@@ -87,7 +87,6 @@ export default {
     ...mapState(['player']),
     shownPlayerCards() {
       let tmp = document.body.clientWidth
-      console.log(tmp)
       let w = tmp > 1600 ? 10 : tmp > 1200 ? 6 : tmp > 800 ? 4 : 3
       let l = this.player.starPlayerList.length + 1
       return l > w ? l : w
