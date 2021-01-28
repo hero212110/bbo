@@ -364,7 +364,6 @@ export default {
             height: 100%;
             display: flex;
             flex-wrap: wrap;
-
             > li {
               width: 100%;
               height: calc(100% -4px / 8);
@@ -408,7 +407,6 @@ export default {
               height: calc(100% -4px / 3);
               margin: 2px 2px;
               border-radius: 6px;
-              // background: #d3d4d6;
               background: rgba($color: #484848, $alpha: 0.8);
               > div {
                 width: 100%;
