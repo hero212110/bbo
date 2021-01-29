@@ -174,7 +174,7 @@ export default {
     for (let i = 2007; i <= 2020; i++) {
       this.database.year.push(i)
     }
-    this.database.team[0].text = '此團隊沒有特徵'
+    this.database.team[0] = { id: null, text: '此團隊沒有特徵', img: 'cpbl' }
   },
 }
 </script>
