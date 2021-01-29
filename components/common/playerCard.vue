@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="avatar-container text-xs-caption text-sm-body-2 text-md-body-1 text-lg-h6"
-    :class="$id2ovr2color(playerData.id)"
-  >
+  <div class="avatar-container" :class="$id2ovr2color(playerData.id)">
     <div class="avatar-pic">
       <img
         :src="require(`../../static/images/player/${playerData.team}.png`)"
@@ -22,6 +19,13 @@
         :class="$getLevelColor(player.level)"
       >
         +{{ player.level }}
+      </span>
+      <span
+        v-if="individualLevel"
+        class="level"
+        :class="$getLevelColor(playerData.level)"
+      >
+        +{{ playerData.level }}
       </span>
     </div>
 
@@ -45,6 +49,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    individualLevel: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     ...mapState(['player']),
@@ -61,6 +69,7 @@ export default {
   font-size: 1em;
   border: 0.5px solid #6c6c6c;
   box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.7);
+  cursor: pointer;
   @media screen and(max-width: 500px) {
     font-size: 0.6em;
   }

@@ -1,3 +1,4 @@
+import { Message } from 'element-ui'
 const mutations = {
   INITIAL_STATE(state) {
     const default_state = {
@@ -76,7 +77,11 @@ const mutations = {
         player.extra = null
         state.starPlayerList.push(player)
       } else {
-        this.$notify({ type: 'error', msg: '我的最愛上限為9名球員' })
+        Message({
+          message: '我的最愛上限為9名球員',
+          type: 'error',
+          duration: 3 * 1000,
+        })
       }
     }
   },
@@ -97,7 +102,25 @@ const mutations = {
     ])
   },
   ADD_STARTING_PLAYER(state, { index, data }) {
-    state.startingPlayerList.splice(index, 1, deepCopy(data))
+    let p1 = deepCopy(state.startingPlayerList[index])
+    let p2 = deepCopy(data)
+    //先發有人 => swap 先發 候補
+    if (p1) {
+      state.startingPlayerList.splice(index, 1, p2)
+      let p2Index = deepCopy(state.starPlayerList).find((item) => {
+        return item.id == p1.id
+      })
+      state.starPlayerList.splice(p2Index, 1, p1)
+      const set = new Set()
+      const unduplicated = deepCopy(state.starPlayerList).filter((item) =>
+        !set.has(item.id) ? set.add(item.id) : false
+      )
+      state.starPlayerList = unduplicated
+    }
+    //先發沒人 => splice 先發
+    else {
+      state.startingPlayerList.splice(index, 1, p2)
+    }
   },
   REMOVE_STARTING_PLAYER(state, { index }) {
     state.startingPlayerList.splice(index, 1, null)
@@ -117,9 +140,17 @@ const mutations = {
   },
   SET_SWAP_MODE(state, val) {
     state.swapMode = val
-    let swapOn = { type: 'success', msg: '變更打序模式已啟用' }
-    let swapOff = { type: 'warning', msg: '變更打序模式已關閉' }
-    this.$notify(val ? swapOn : swapOff)
+    let swapOn = {
+      type: 'success',
+      message: '變更打序模式已啟用',
+      duration: 3 * 1000,
+    }
+    let swapOff = {
+      type: 'warning',
+      message: '變更打序模式已關閉',
+      duration: 3 * 1000,
+    }
+    Message(val ? swapOn : swapOff)
   },
   SWAP_PLAYER(state, { p1, p2 }) {
     let player1 = deepCopy(state.startingPlayerList[p1])
@@ -140,7 +171,6 @@ const mutations = {
     tmp.extra = val
     state.startingPlayerList.splice(state.currStartingPlayer, 1, tmp)
   },
-
   SET_BASIC_DIALOG(state, val) {
     state.basicDialog = val
   },

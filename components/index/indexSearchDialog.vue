@@ -38,7 +38,7 @@
             class="main"
             :class="{
               filtered: !isNotSelection,
-              scrolled: currTab.id == 'field' || currTab.id == 'type',
+              scrolled: currTab.id == 'field' || currTab.id == 'type'|| currTab.id == 'team',
             }"
           >
             <p v-if="isNotSelection" class="content-title">

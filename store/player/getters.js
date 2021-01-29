@@ -1,6 +1,7 @@
 import levelList from '@/static/data/upgrade/level.json'
 import teamList from '@/static/data/upgrade/team.json'
 import extraList from '@/static/data/upgrade/extra.json'
+import historyObj from '@/static/data/upgrade/history.json'
 const statusList = [
   'ovr',
   'power',
@@ -83,11 +84,7 @@ const getters = {
           }
         }
         if (state.basicTeam.val) {
-          let obj = {
-            brothers: ['brothers', 'ctbc_brothers'],
-            ctbc_brothers: ['brothers', 'ctbc_brothers'],
-            lions: ['lions'],
-          }
+          let obj = JSON.parse(JSON.stringify(historyObj))
           if (obj[state.basicTeam.id].includes(item.team)) {
             let arr = teamList.ALLSTAR[state.basicTeam.val]
             for (let i = 0; i < statusList.length; i++) {
@@ -101,7 +98,6 @@ const getters = {
             item[statusList[i]] += arr[i]
           }
         }
-        
       }
     })
 

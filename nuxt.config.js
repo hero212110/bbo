@@ -12,10 +12,14 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/logo.ico' }],
   },
-  css: ['@fortawesome/fontawesome-free/css/all.css'],
+  css: [
+    '@fortawesome/fontawesome-free/css/all.css',
+    'element-ui/lib/theme-chalk/index.css',
+  ],
   plugins: [
     { src: '~/plugins/common.js' },
     { src: '~/plugins/localStorage.js', ssr: false },
+    { src: '~/plugins/ElementUI', ssr: true },
   ],
   components: true,
   buildModules: ['@nuxtjs/vuetify', '@nuxtjs/style-resources'],
@@ -43,5 +47,7 @@ export default {
     },
   },
 
-  build: {},
+  build: {
+    vendor: ['element-ui'],
+  },
 }

@@ -1,0 +1,8 @@
+{
+  "brothers": ["brothers", "ctbc_brothers"],
+  "ctbc_brothers": ["brothers", "ctbc_brothers"],
+  "lions": ["lions"],
+  "fubon": ["fubon"],
+  "rakuten": ["rakuten"],
+  "media": ["media"]
+}
