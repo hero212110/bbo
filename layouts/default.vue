@@ -23,6 +23,9 @@ export default {
   mounted() {
     // this.$store.commit('player/INITIAL_STATE')
   },
+  beforeDestroy() {
+    this.$store.commit('player/CLEAR_PLAYER_LIST')
+  },
 }
 </script>
 <style lang="scss" scoped>

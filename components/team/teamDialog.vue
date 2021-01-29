@@ -31,9 +31,10 @@
           <v-col
             cols="12"
             sm="8"
-            class="main scrolled"
+            class="main"
             :class="{
               filtered: currTab.id == 'team',
+              scrolled: currTab.id == 'team',
             }"
           >
             <p v-if="currTab.id == 'amount'" class="content-title">

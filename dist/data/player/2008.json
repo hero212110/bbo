@@ -131,5 +131,24 @@
     "throw_power": 69,
     "throw_skill": 68,
     "dex": 70
+  },
+  {
+    "id": "2008-media-1",
+    "team": "media",
+    "year": "2008",
+    "name": "周思齊",
+    "type": "c-sb",
+    "side": "l-l",
+    "field": "rf",
+    "weather": "cloud",
+    "ovr": 78,
+    "power": 75,
+    "contact": 79,
+    "base_speed": 81,
+    "defense_speed": 82,
+    "defense_range": 76,
+    "throw_power": 68,
+    "throw_skill": 66,
+    "dex": 76
   }
 ]
