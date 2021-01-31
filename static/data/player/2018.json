@@ -131,5 +131,24 @@
     "throw_power": 66,
     "throw_skill": 65,
     "dex": 70
+  },
+  {
+    "id": "2018-lions-1",
+    "team": "lions",
+    "year": "2018",
+    "name": "蘇智傑",
+    "type": "p-sb",
+    "side": "r-l",
+    "field": "lf",
+    "weather": "none",
+    "ovr": 80,
+    "power": 81,
+    "contact": 79,
+    "base_speed": 78,
+    "defense_speed": 79,
+    "defense_range": 78,
+    "throw_power": 71,
+    "throw_skill": 70,
+    "dex": 75
   }
 ]

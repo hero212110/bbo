@@ -280,7 +280,7 @@ export default {
             color: white;
             border: 1px solid #bebebe;
             background: rgba($color: #484848, $alpha: 0.8);
-
+            color: black !important;
             &.copper {
               @include copper;
             }
@@ -296,7 +296,7 @@ export default {
             &:focus {
               border: 1px solid yellow;
               box-shadow: none;
-              color: white;
+              color: black;
             }
           }
           .close-player {

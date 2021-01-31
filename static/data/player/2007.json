@@ -93,5 +93,24 @@
     "throw_power": 70,
     "throw_skill": 70,
     "dex": 76
+  },
+  {
+    "id": "2007-lanew-1",
+    "team": "lanew",
+    "year": "2007",
+    "name": "黃龍義",
+    "type": "p-sb",
+    "side": "r-r",
+    "field": "cf",
+    "weather": "rain",
+    "ovr": 80,
+    "power": 79,
+    "contact": 78,
+    "base_speed": 82,
+    "defense_speed": 83,
+    "defense_range": 78,
+    "throw_power": 73,
+    "throw_skill": 69,
+    "dex": 78
   }
 ]

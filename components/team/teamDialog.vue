@@ -124,7 +124,7 @@ export default {
         { id: 'amount', text: '年度/球員人數' },
       ],
       database: {
-        team: teamJSON,
+        team: JSON.parse(JSON.stringify(teamJSON)),
         year: [],
         same_team_players: [0, 24, 28],
         same_year_players: [0, 15, 20, 24, 28],

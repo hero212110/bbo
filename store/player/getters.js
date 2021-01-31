@@ -83,7 +83,7 @@ const getters = {
             item[statusList[i]] += arr[i]
           }
         }
-        if (state.basicTeam.id) {
+        if (state.basicTeam.id && state.basicTeam.val) {
           let obj = JSON.parse(JSON.stringify(historyObj))
           if (obj[state.basicTeam.id].includes(item.team)) {
             let arr = teamList.ALLSTAR[state.basicTeam.val]

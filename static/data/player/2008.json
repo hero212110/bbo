@@ -150,5 +150,24 @@
     "throw_power": 68,
     "throw_skill": 66,
     "dex": 76
+  },
+  {
+    "id": "2008-lanew-1",
+    "team": "lanew",
+    "year": "2008",
+    "name": "林智勝",
+    "type": "p-sb",
+    "side": "r-r",
+    "field": "ss",
+    "weather": "cloud",
+    "ovr": 80,
+    "power": 79,
+    "contact": 79,
+    "base_speed": 80,
+    "defense_speed": 81,
+    "defense_range": 77,
+    "throw_power": 74,
+    "throw_skill": 72,
+    "dex": 76
   }
 ]

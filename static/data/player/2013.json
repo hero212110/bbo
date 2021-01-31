@@ -74,5 +74,43 @@
     "throw_power": 81,
     "throw_skill": 78,
     "dex": 78
+  },
+  {
+    "id": "2013-lions-1",
+    "team": "lions",
+    "year": "2013",
+    "name": "劉芙豪",
+    "type": "c-sb",
+    "side": "r-r",
+    "field": "rf",
+    "weather": "rain",
+    "ovr": 75,
+    "power": 71,
+    "contact": 77,
+    "base_speed": 79,
+    "defense_speed": 81,
+    "defense_range": 76,
+    "throw_power": 65,
+    "throw_skill": 64,
+    "dex": 76
+  },
+  {
+    "id": "2013-lamigo-1",
+    "team": "lamigo",
+    "year": "2013",
+    "name": "詹智堯",
+    "type": "c-sb",
+    "side": "l-l",
+    "field": "cf",
+    "weather": "rain",
+    "ovr": 77,
+    "power": 72,
+    "contact": 76,
+    "base_speed": 84,
+    "defense_speed": 86,
+    "defense_range": 80,
+    "throw_power": 77,
+    "throw_skill": 71,
+    "dex": 80
   }
 ]

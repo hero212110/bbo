@@ -3,6 +3,7 @@
     <div class="avatar-pic">
       <img
         :src="require(`../../static/images/player/${playerData.team}.png`)"
+        onerror="this.src='/images/player/no-players.png'"
         alt=""
       />
       <span class="avatar-ovr">{{ playerData.ovr }}</span>

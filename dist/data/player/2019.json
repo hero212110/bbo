@@ -169,5 +169,24 @@
     "throw_power": 62,
     "throw_skill": 62,
     "dex": 72
+  },
+  {
+    "id": "2019-fubon-1",
+    "team": "fubon",
+    "year": "2019",
+    "name": "林哲瑄",
+    "type": "c-sb",
+    "side": "r-r",
+    "field": "cf",
+    "weather": "rain",
+    "ovr": 80,
+    "power": 78,
+    "contact": 78,
+    "base_speed": 83,
+    "defense_speed": 84,
+    "defense_range": 80,
+    "throw_power": 78,
+    "throw_skill": 76,
+    "dex": 79
   }
 ]
