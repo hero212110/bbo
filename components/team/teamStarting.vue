@@ -1,6 +1,6 @@
 <template>
   <v-col cols="12">
-    <v-sheet min-height="65vh" rounded="lg" droppable class="pa-2">
+    <v-sheet min-height="65vh" rounded="lg" droppable class="pa-2" id="team">
       <div class="player-wrapper">
         <ul>
           <li
@@ -101,6 +101,7 @@
 </template>
 <script>
 import { mapState, mapGetters } from 'vuex'
+import domtoimage from 'dom-to-image'
 import playerCard from '@/components/common/playerCard'
 export default {
   components: { playerCard },
@@ -144,6 +145,9 @@ export default {
     currCard(val) {
       this.$store.commit('player/SET_CURR_STARTING_PLAYER', val)
     },
+    'player.saveImg'(val) {
+      if (val) this.dom2Image()
+    },
   },
   methods: {
     selectCard(val) {
@@ -170,6 +174,21 @@ export default {
           index: this.currCard,
         })
       }
+    },
+    dom2Image() {
+      let imgName =
+        `${this.player.basicYear.id}-${this.$getIdText(
+          this.player.basicTeam.id
+        )}` || 'team'
+      domtoimage
+        .toJpeg(document.getElementById('team'), { quality: 0.95 })
+        .then(function (dataUrl) {
+          let link = document.createElement('a')
+          link.download = `${imgName}.jpeg`
+          link.href = dataUrl
+          link.click()
+        })
+      this.$store.commit('player/SAVE_IMG', false)
     },
   },
 }
@@ -280,7 +299,7 @@ export default {
             color: white;
             border: 1px solid #bebebe;
             background: rgba($color: #484848, $alpha: 0.8);
-            color: black !important;
+
             &.copper {
               @include copper;
             }
@@ -296,7 +315,7 @@ export default {
             &:focus {
               border: 1px solid yellow;
               box-shadow: none;
-              color: black;
+              color: white;
             }
           }
           .close-player {

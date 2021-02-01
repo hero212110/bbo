@@ -1,6 +1,6 @@
 const state = () => ({
   form: {},
-  drawer:false,
+  drawer: false,
   playerList: [],
   starPlayerList: [],
   startingPlayerList: [null, null, null, null, null, null, null, null, null],
@@ -20,6 +20,7 @@ const state = () => ({
   },
   loading: false,
   swapMode: false,
+  saveImg: false,
 })
 
 export default state
