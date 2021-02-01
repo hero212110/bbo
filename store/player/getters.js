@@ -15,10 +15,10 @@ const statusList = [
 ]
 const getters = {
   GetUpgradedPlayerList: (state) => {
-    let tmp = JSON.parse(JSON.stringify(state.playerList))
+    let list = JSON.parse(JSON.stringify(state.playerList))
 
     if (state.level) {
-      tmp.forEach((item) => {
+      list.forEach((item) => {
         let arr = levelList[item.type][state.level]
         for (let i = 0; i < statusList.length; i++) {
           item[statusList[i]] += arr[i]
@@ -27,7 +27,7 @@ const getters = {
     }
 
     if (state.member.as) {
-      tmp.forEach((item) => {
+      list.forEach((item) => {
         let arr = teamList.ALLSTAR[state.member.as]
         for (let i = 0; i < statusList.length; i++) {
           item[statusList[i]] += arr[i]
@@ -36,7 +36,7 @@ const getters = {
     }
 
     if (state.member.year) {
-      tmp.forEach((item) => {
+      list.forEach((item) => {
         let arr = teamList.YEAR[state.member.year]
         for (let i = 0; i < statusList.length; i++) {
           item[statusList[i]] += arr[i]
@@ -45,7 +45,7 @@ const getters = {
     }
 
     if (state.member.extra) {
-      tmp.forEach((item) => {
+      list.forEach((item) => {
         let arr = extraList[state.member.extra]
         for (let i = 0; i < statusList.length; i++) {
           item[statusList[i]] += arr[i]
@@ -54,7 +54,7 @@ const getters = {
     }
 
     if (state.sort.val) {
-      tmp.sort(function (a, b) {
+      list.sort(function (a, b) {
         if (state.sort.decrease) {
           return b[state.sort.val] - a[state.sort.val]
         } else {
@@ -63,13 +63,13 @@ const getters = {
       })
     }
 
-    return tmp
+    return list
   },
 
   GetUpgradedStartingPlayerList: (state) => {
-    let tmp = JSON.parse(JSON.stringify(state.startingPlayerList))
+    let list = JSON.parse(JSON.stringify(state.startingPlayerList))
 
-    tmp.forEach((item, index) => {
+    list.forEach((item, index) => {
       if (item) {
         if (item.level) {
           let arr = levelList[item.type][item.level]
@@ -101,7 +101,7 @@ const getters = {
       }
     })
 
-    return tmp
+    return list
   },
 }
 

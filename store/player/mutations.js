@@ -190,6 +190,9 @@ const mutations = {
     state.basicTeam = deepCopy({ id: null, val: null })
     state.basicYear = deepCopy({ id: null, val: null })
   },
+  SAVE_IMG(state, val) {
+    state.saveImg = val
+  },
 }
 
 export default mutations

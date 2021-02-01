@@ -42,10 +42,11 @@ class PlayerService {
           (players = players.concat(fullPlayer[`player${i}`]))
       }
 
-      players = filterSelection('field', field, players)
-      players = filterSelection('team', team, players)
-      players = filterSelection('weather', weather, players)
-      players = filterSelection('type', type, players)
+      let selectionList = ['field', 'team', 'weather', 'type']
+      selectionList.forEach((item) => {
+        players = filterSelection(item, params[item], players)
+      })
+
       players = filterRange('ovr', ovr, players)
       players = filterText('name', name, players)
       return players

@@ -23,12 +23,24 @@
         fab
         dark
         small
+        data-content="儲存隊伍圖片"
+        color="success"
+        class="edit-basic"
+        @click="saveImg"
+      >
+        <v-icon>fas fa-save</v-icon>
+      </v-btn>
+
+      <v-btn
+        fab
+        dark
+        small
         class="mode"
         :color="player.swapMode ? 'warning' : 'green'"
         :data-content="player.swapMode ? '關閉變更打序' : '啟用變更打序'"
         @click="setSwapMode(!player.swapMode)"
       >
-        <v-icon> fas fa-pencil-alt</v-icon>
+        <v-icon>fas fa-pencil-alt</v-icon>
       </v-btn>
 
       <v-btn
@@ -43,7 +55,7 @@
         <v-icon>fas fa-eraser</v-icon>
       </v-btn>
 
-        <v-btn
+      <v-btn
         fab
         dark
         small
@@ -76,8 +88,11 @@ export default {
     clearStarting() {
       this.$store.commit('player/CLEAR_STARTING_PLAYER')
     },
-     clearBench() {
+    clearBench() {
       this.$store.commit('player/CLEAR_STAR_PLAYER')
+    },
+    saveImg() {
+      this.$store.commit('player/SAVE_IMG', true)
     },
   },
 }
