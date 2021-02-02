@@ -95,8 +95,6 @@ export default {
     position: relative;
     pointer-events: none;
     > img {
-      // width: 80%;
-      // min-height: 100%;
       max-width: 100%;
       max-height: 100%;
       display: block;
@@ -168,6 +166,7 @@ export default {
     justify-content: center;
     align-items: center;
     > span {
+      white-space: nowrap;
       font-size: 100%;
       @media screen and(max-width: 500px) {
         font-size: 150%;
