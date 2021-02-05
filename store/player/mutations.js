@@ -56,14 +56,11 @@ const mutations = {
     state.playerList = deepCopy(tmp)
   },
   STAR_PLAYER(state, val) {
-    let tmp = deepCopy(state.starPlayerList)
-    let arr = []
-    tmp.forEach((item) => {
-      arr.push(item.id)
-    })
+    let list = deepCopy(state.starPlayerList)
+    let idList = list.map((item) => item.id)
 
-    if (arr.includes(val.id)) {
-      let removed = tmp.filter((item) => {
+    if (idList.includes(val.id)) {
+      let removed = list.filter((item) => {
         return item.id != val.id
       })
       state.starPlayerList = deepCopy(removed)
