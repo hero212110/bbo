@@ -85,17 +85,13 @@ export default ({ app, store }, inject) => {
     return icon
   })
 
-  inject('isStarPlayer', (params) => {
-    let tmp = JSON.parse(JSON.stringify(store.state.player.starPlayerList))
-    if (tmp.length == 0) {
+  inject('isStarPlayer', (id) => {
+    let list = JSON.parse(JSON.stringify(store.state.player.starPlayerList))
+    if (list.length == 0) {
       return false
     } else {
-      let arr = []
-      tmp.forEach((item) => {
-        arr.push(item.id)
-      })
-
-      return arr.includes(params) ? true : false
+      let idList = list.map((item) => item.id)
+      return idList.includes(id) ? true : false
     }
   })
 

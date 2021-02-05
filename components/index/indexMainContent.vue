@@ -63,43 +63,18 @@
                   <div class="avatar-card">
                     <player-card v-if="item" :playerData="item"></player-card>
                   </div>
-                  <!-- <div class="avatar-container" :class="$id2ovr2color(item.id)">
-                    <div class="avatar-pic">
-                      <img
-                        :src="
-                          require(`../../static/images/player/${item.team}.png`)
-                        "
-                        alt=""
-                      />
-                      <span class="avatar-ovr">{{ item.ovr }}</span>
 
-                      <v-icon
-                        small
-                        class="avatar-weather"
-                        :class="item.weather"
-                      >
-                        fas fa-{{ $getWeatherIcon(item.weather) }}
-                      </v-icon>
-                      <span class="avatar-field">
-                        {{ item.field.toUpperCase() }}
-                      </span>
-                      <span :class="$getLevelColor(player.level)">
-                        +{{ player.level }}
-                      </span>
-                    </div>
-
-                    <div class="avatar-name">
-                      <span>
-                        {{ `${item.year.substr(2, 2)}${item.name}` }}
-                      </span>
-                    </div>
-                  </div> -->
-
-                  <div class="avatar-info">
-                    <span>{{ $getIdText(item.team) }}</span>
-                    <span>{{ $getIdText(item.side) }}</span>
-                    <span>{{ $getIdText(item.type) }}</span>
-                  </div>
+                  <ul class="avatar-info">
+                    <li>
+                      <span>{{ $getIdText(item.team) }}</span>
+                    </li>
+                    <li>
+                      <span>{{ $getIdText(item.side) }}</span>
+                    </li>
+                    <li>
+                      <span class="type">{{ $getIdText(item.type) }}</span>
+                    </li>
+                  </ul>
                 </div>
                 <div class="right">
                   <ul>
@@ -368,11 +343,22 @@ export default {
         height: 170px;
       }
       .avatar-info {
+        padding-left: 0;
         padding-top: 10px;
-        > span {
+        list-style: none;
+        > li {
           font-size: 0.5em;
-          display: block;
-          width: 100%;
+          &:not(:last-child) {
+            padding-left: 2px;
+          }
+          > span {
+            &.type {
+              padding: 4px 4px;
+              background: $color-purple;
+              color: white;
+              border-radius: 4px;
+            }
+          }
         }
       }
     }
@@ -431,7 +417,6 @@ export default {
     bottom: 1vh;
     left: 50%;
     transform: translateX(-50%);
-
     > li {
       float: left;
       height: 38px;

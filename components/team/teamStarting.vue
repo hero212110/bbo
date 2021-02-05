@@ -296,7 +296,7 @@ export default {
             z-index: 3;
             text-align: center;
             text-shadow: 0 0 10px black !important;
-            color: white;
+            color: black !important;
             border: 1px solid #bebebe;
             background: rgba($color: #484848, $alpha: 0.8);
 
