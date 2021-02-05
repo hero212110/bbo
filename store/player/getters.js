@@ -71,7 +71,7 @@ const getters = {
 
     list.forEach((item, index) => {
       if (item) {
-        if (item.level) {
+        if (item.level >= 1 && item.level <= 10) {
           let arr = levelList[item.type][item.level]
           for (let i = 0; i < statusList.length; i++) {
             item[statusList[i]] += arr[i]
