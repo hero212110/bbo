@@ -38,7 +38,10 @@
             class="main"
             :class="{
               filtered: !isNotSelection,
-              scrolled: currTab.id == 'field' || currTab.id == 'type'|| currTab.id == 'team',
+              scrolled:
+                currTab.id == 'field' ||
+                currTab.id == 'type' ||
+                currTab.id == 'team',
             }"
           >
             <p v-if="isNotSelection" class="content-title">
@@ -149,39 +152,37 @@ export default {
   props: {
     searchDialog: { type: Boolean, default: false },
   },
-  data() {
-    return {
-      save: false,
-      currTab: { id: 'name', text: '名稱' },
-      tabList: [
-        { id: 'name', text: '球員名' },
-        { id: 'team', text: '球團' },
-        { id: 'field', text: '位置' },
-        { id: 'ovr', text: 'OVR' },
-        { id: 'year', text: '年度' },
-        { id: 'weather', text: '氣候' },
-        { id: 'type', text: '升級類型' },
-      ],
-      form: {
-        name: '',
-        team: [],
-        field: [],
-        ovr: [],
-        year: [],
-        weather: [],
-        type: [],
-      },
-      database: {
-        name: '',
-        team: teamJSON,
-        field: fieldJSON,
-        ovr: [56, 92],
-        year: [2007, 2020],
-        weather: weatherJSON,
-        type: typeJSON,
-      },
-    }
-  },
+  data: () => ({
+    save: false,
+    currTab: { id: 'name', text: '名稱' },
+    tabList: [
+      { id: 'name', text: '球員名' },
+      { id: 'team', text: '球團' },
+      { id: 'field', text: '位置' },
+      { id: 'ovr', text: 'OVR' },
+      { id: 'year', text: '年度' },
+      { id: 'weather', text: '氣候' },
+      { id: 'type', text: '升級類型' },
+    ],
+    form: {
+      name: '',
+      team: [],
+      field: [],
+      ovr: [],
+      year: [],
+      weather: [],
+      type: [],
+    },
+    database: {
+      name: '',
+      team: teamJSON,
+      field: fieldJSON,
+      ovr: [56, 92],
+      year: [2007, 2020],
+      weather: weatherJSON,
+      type: typeJSON,
+    },
+  }),
   computed: {
     currSearchDialog: {
       get() {

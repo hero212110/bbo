@@ -44,7 +44,6 @@ export default {
   },
   watch: {
     group() {
-      this.drawer = false
       this.$store.commit('player/SET_DRAWER', false)
     },
   },

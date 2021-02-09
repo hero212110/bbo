@@ -299,7 +299,6 @@ export default {
             color: black !important;
             border: 1px solid #bebebe;
             background: rgba($color: #484848, $alpha: 0.8);
-
             &.copper {
               @include copper;
             }
@@ -351,7 +350,6 @@ export default {
                 border-radius: inherit;
                 background: orange;
               }
-
               &::after {
                 content: attr(data-content);
                 position: absolute;
