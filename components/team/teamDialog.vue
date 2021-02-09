@@ -116,21 +116,19 @@
 import { mapState, mapGetters } from 'vuex'
 import teamJSON from '@/static/data/form/team'
 export default {
-  data() {
-    return {
-      currTab: { id: 'team', text: '球團' },
-      tabList: [
-        { id: 'team', text: '球團' },
-        { id: 'amount', text: '年度/球員人數' },
-      ],
-      database: {
-        team: JSON.parse(JSON.stringify(teamJSON)),
-        year: [],
-        same_team_players: [0, 24, 28],
-        same_year_players: [0, 15, 20, 24, 28],
-      },
-    }
-  },
+  data: () => ({
+    currTab: { id: 'team', text: '球團' },
+    tabList: [
+      { id: 'team', text: '球團' },
+      { id: 'amount', text: '年度/球員人數' },
+    ],
+    database: {
+      team: JSON.parse(JSON.stringify(teamJSON)),
+      year: [],
+      same_team_players: [0, 24, 28],
+      same_year_players: [0, 15, 20, 24, 28],
+    },
+  }),
   computed: {
     ...mapState(['player']),
     team_year: {

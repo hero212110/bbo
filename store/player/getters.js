@@ -103,6 +103,15 @@ const getters = {
 
     return list
   },
+
+  GetExtraPlayerList: (state) => {
+    let list = JSON.parse(JSON.stringify(state.startingPlayerList))
+    let extraList = []
+    list.forEach((item) => {
+      extraList.push(item ? item.extra : null)
+    })
+    return extraList
+  },
 }
 
 export default getters
